@@ -6,6 +6,9 @@ gem 'dashing-rails'
 # Dashing-rails requires a multi threaded server
 gem 'puma'
 
+# Gem to connect to Mixpanel
+gem 'mixpanel_client'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
@@ -56,6 +59,8 @@ group :development, :test do
   gem "rspec-nc", require: false
   gem "pry-rails"
   gem "faker", require: false
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
 end
 
 group :test do
