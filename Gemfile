@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+# The dashboard gem
+gem 'dashing-rails'
+
+# Dashing-rails requires a multi threaded server
+gem 'puma'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
@@ -58,3 +64,8 @@ end
 group :test do
   gem "shoulda-matchers"
 end
+
+group :production do
+  gem 'rails_12factor'
+end
+
