@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # The dashboard gem
-gem 'dashing-rails'
+gem 'dashing-rails', github: 'agustinf/dashing-rails'
 
 # Dashing-rails requires a multi threaded server
 gem 'puma'

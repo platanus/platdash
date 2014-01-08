@@ -1,3 +1,15 @@
+GIT
+  remote: git://github.com/agustinf/dashing-rails.git
+  revision: 63586e54bce4815d60f3ce86d9f8fe22b5b06ca8
+  specs:
+    dashing-rails (2.2.0)
+      coffee-script (~> 2.2)
+      connection_pool (~> 1.1)
+      jquery-rails (~> 3.0)
+      rails (~> 4.0)
+      redis (~> 3.0)
+      rufus-scheduler (~> 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -40,13 +52,6 @@ GEM
     coffee-script-source (1.6.3)
     columnize (0.3.6)
     connection_pool (1.2.0)
-    dashing-rails (2.2.0)
-      coffee-script (~> 2.2)
-      connection_pool (~> 1.1)
-      jquery-rails (~> 3.0)
-      rails (~> 4.0)
-      redis (~> 3.0)
-      rufus-scheduler (~> 3.0)
     debugger (1.6.5)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -205,7 +210,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
-  dashing-rails
+  dashing-rails!
   debugger
   factory_girl_rails
   faker

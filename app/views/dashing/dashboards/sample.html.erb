@@ -5,29 +5,32 @@
 <div class="gridster">
   <ul>
     <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-      <div data-id="welcome" data-view="Text" data-title="Hello" data-text="This is your shiny new dashboard." data-moreinfo="Protip: You can drag the widgets around!"></div>
+      <div data-id="welcome" data-view="Text" data-title="Bienvenido al Dashboard de Platanus" data-text="Aquí van a aparecer números que nos interesan a todos." data-moreinfo="Tip: Los cuadrados se pueden arrastrar!"></div>
     </li>
 
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
       <div data-id="qh_orders" data-view="Meter" data-title="Pedidos en QueHambre" data-min="0" data-max="200" data-moreinfo="Pedidos del día."></div>
     </li>
     
-    <li data-row="2" data-col="4" data-sizex="1" data-sizey="1">
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
       <div data-id="qh_visits"
            data-view="Number"
            data-title="Búsquedas en QueHambre"
-           style="background-color:#bb8e98;"
+           style="background-color:#ba0000;"
            data-moreinfo="Búsquedas del día."></div>
-      <i class="icon-user icon-background"></i>
-    </li>
-
+      <i class="fa fa-search icon-background"></i>
+   </li>
+<!-- 
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
       <div data-id="valuation" data-view="Number" data-title="Current Valuation" data-moreinfo="In billions" data-prefix="$"></div>
-    </li>
+    </li> -->
 
-    <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+<!--     <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
       <div data-id="convergence" data-view="Graph" data-title="Convergence" style="background-color:#ff9618"></div>
-    </li>
+    </li> -->
   </ul>
-  <center><div style="font-size: 12px">Try this: curl -X PUT 'http://<%= request.host %>:<%= request.port %>/dashing/widgets/welcome' --data "widget%5Btext%5D=Dashing+is+awesomecurl"</div></center>
+  <center>
+  <!--   <div style="font-size: 12px">Try this: curl -X PUT 'http://<%= request.host %>:<%= request.port %>/dashing/widgets/welcome' --data "widget%5Btext%5D=Dashing+is+awesomecurl"</div> -->
+  <div style="font-size: 12px">Espera unos segundos y verás cómo aparecen los datos...</div>
+  </center>
 </div>
