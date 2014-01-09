@@ -42,13 +42,13 @@ def mixpanel_event_number(options)
     raise "Invalid type #{type}"
   end
  
-  num_days = options[:num_days] ||30
-  interval = options[:interval] || "day"
+  interval = options[:interval] ||30
+  unit = options[:unit] || "day"
  
   mixpanel_options = {
     type: type,
-    unit: interval,
-    interval: num_days,
+    unit: unit,
+    interval: interval,
     limit: 5,
   }
  

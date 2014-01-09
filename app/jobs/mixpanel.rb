@@ -7,12 +7,18 @@ require ::File.join(root, "..", "..", 'lib', 'mixpanel_event_number')
  
 Dashing.scheduler.every '70s', :first_in => 10 do |job|
   Dashing.send_event('qh_orders', {
-    value: mixpanel_event_number(event_name: "Checkout Success", num_days:1)
+    value: mixpanel_event_number(
+      event_name: "Checkout Success",
+      interval:(Time.now.seconds_since_midnight/60 + Time.now.formatted_offset.to_i*60).to_i,
+      unit:"minute")
   })
 end
 
 Dashing.scheduler.every '35s', :first_in => 6 do |job|
   Dashing.send_event('qh_visits', {
-    current: mixpanel_event_number(event_name: "Search", num_days:1)
+    current: mixpanel_event_number(
+      event_name: "Search",
+      interval:(Time.now.seconds_since_midnight/60 + Time.now.formatted_offset.to_i*60).to_i,
+      unit:"minute")
   })
 end
