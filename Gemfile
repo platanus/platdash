@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 # The dashboard gem
 gem 'dashing-rails', github: 'agustinf/dashing-rails'
 
+# Fix for some out of reach assets
+gem "non-stupid-digest-assets"
+
 # Dashing-rails requires a multi threaded server
 gem 'puma'
 

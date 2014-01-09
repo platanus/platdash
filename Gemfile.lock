@@ -105,6 +105,7 @@ GEM
     mixpanel_client (3.1.2)
       typhoeus (~> 0.5.4)
     multi_json (1.8.2)
+    non-stupid-digest-assets (1.0.1)
     pg (0.17.0)
     polyglot (0.3.3)
     pry (0.9.12.4)
@@ -218,6 +219,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   mixpanel_client
+  non-stupid-digest-assets
   pg
   pry-rails
   puma
