@@ -12,32 +12,38 @@ require 'uri'
 # if the server you're checking redirects (from http to https for example) the check will
 # return false
  
-servers = [{name: 'SZOT (production)', url: 'szot.platan.us', method: 'ping'},
-    {name: 'KROSS (staging)', url: 'kross.platan.us', method: 'ping'},
-    {name: 'CORONA (production)', url: 'corona.platan.us', method: 'ping'},
-    {name: 'KSEC (website)', url: 'https://www.ksec.cl', method: 'http'},
-    {name: 'LAN WEBTEST (website)', url: 'http://webtest.platan.us/users/sign_in', method: 'http'}]
+servers = [{name: 'quehambre.cl', url: 'http://www.quehambre.cl', method: 'http'},
+    {name: 'pricing.platan.us', url: 'http://pricing.platan.us/users/sign_in', method: 'http'},
+    {name: 'ksec.cl', url: 'https://www.ksec.cl', method: 'http'},
+    {name: 'webtest.platan.us', url: 'http://webtest.platan.us/users/sign_in', method: 'http'},
+    {name: 'ghoster.io', url: 'http://ghoster.io', method: 'http'},
+    {name: 'cb.platan.us', url: 'http://cb.platan.us', method: 'http'},
+    {name: 'app.camperfarm.org', url: 'http://app.camperfarm.org', method: 'http'}]
  
-Dashing.scheduler.every '10s', :first_in => 0 do |job|
+Dashing.scheduler.every '300s', :first_in => 0 do |job|
  
   statuses = Array.new
   
   # check status for each server
   servers.each do |server|
     if server[:method] == 'http'
-      uri = URI.parse(server[:url])
-      http = Net::HTTP.new(uri.host, uri.port)
-      if uri.scheme == "https"
-        http.use_ssl=true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      end
-      request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
-      if response.code == "200"
-        result = 1
-       else
+      begin 
+        uri = URI.parse(server[:url])
+        http = Net::HTTP.new(uri.host, uri.port)
+        if uri.scheme == "https"
+          http.use_ssl=true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        end
+        request = Net::HTTP::Get.new(uri.request_uri)
+        response = http.request(request)
+        if response.code == "200"
+          result = 1
+         else
+          result = 0
+         end
+      rescue
         result = 0
-       end
+      end
     elsif server[:method] == 'ping'
       ping_count = 10
       result = `ping -q -c #{ping_count} #{server[:url]}`
@@ -50,7 +56,7 @@ Dashing.scheduler.every '10s', :first_in => 0 do |job|
  
     if result == 1
       arrow = "fa fa-thumbs-up"
-      color = "green"
+      color = "$title-color"
     else
       arrow = "fa fa-warning"
       color = "red"
