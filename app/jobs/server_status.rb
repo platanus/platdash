@@ -20,7 +20,7 @@ servers = [{name: 'quehambre.cl', url: 'http://www.quehambre.cl', method: 'http'
     {name: 'cb.platan.us', url: 'http://cb.platan.us', method: 'http'},
     {name: 'app.camperfarm.org', url: 'http://app.camperfarm.org', method: 'http'}]
  
-Dashing.scheduler.every '300s', :first_in => 0 do |job|
+Dashing.scheduler.every '300s', :first_in => 10 do |job|
  
   statuses = Array.new
   
