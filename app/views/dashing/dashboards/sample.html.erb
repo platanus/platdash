@@ -2,17 +2,26 @@
   My super sweet dashboard
 <% end %>
 
+<script type='text/javascript'>
+$(function() {
+  // These settings override the defaults set in application.coffee. You can do this on a per dashboard basis.
+  // Dashing.gridsterLayout('[{"col":2,"row":1},{"col":1,"row":1},{"col":3,"row":1},{"col":2,"row":2},{"col":3,"row":2},{"col":1,"row":2},{"col":5,"row":1},{"col":4,"row":2},{"col":2,"row":3}]')
+  Dashing.widget_base_dimensions = [310, 348]
+  Dashing.numColumns = 6
+});
+</script>
+
 <div class="gridster">
   <ul>
     <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
       <div data-id="welcome" data-view="Text" data-title="Bienvenido al Dashboard de Platanus" data-text="Aquí van a aparecer números que nos interesan a todos." data-moreinfo="Tip: Los cuadrados se pueden arrastrar!"></div>
     </li>
 
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
       <div data-id="qh_orders" data-view="Meter" data-title="Pedidos en QueHambre" data-min="0" data-max="200" data-moreinfo="Pedidos del día."></div>
     </li>
-    
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+
+    <li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
       <div data-id="qh_visits"
            data-view="Number"
            data-title="Búsquedas en QueHambre"
@@ -20,11 +29,11 @@
            data-moreinfo="Búsquedas del día."></div>
       <i class="fa fa-search icon-background"></i>
    </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
       <div data-id="server_status" data-view="server_status" data-title="200 OK"></div>
       <i class="fa fa-laptop icon-background"></i>
     </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
       <div data-id="bitcoin"
            data-view="Bitcoin"
            data-title="Bitcoin"
@@ -32,7 +41,7 @@
            data-updatedAtMessage="Actualizado"></div>
       <i class="fa fa-bitcoin icon-background"></i>
    </li>
-<!-- 
+<!--
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
       <div data-id="valuation" data-view="Number" data-title="Current Valuation" data-moreinfo="In billions" data-prefix="$"></div>
     </li> -->
