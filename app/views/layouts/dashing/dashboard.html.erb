@@ -10,11 +10,17 @@
 
     <%= javascript_include_tag 'dashing/application' %>
     <%= stylesheet_link_tag 'dashing/application' %>
+    <%= stylesheet_link_tag 'style' %>
+    <%= stylesheet_link_tag "http://fonts.googleapis.com/css?family=Ubuntu:medium&subset=Latin" %>
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
     <link rel="icon" href="/favicon.ico">
   </head>
   <body>
+    <div class="header">
+      <%= image_tag("logo_main.svg", height: '40px') %>
+      <span class="logo">platanus</span>
+    </div>
     <div id="container">
       <%= yield %>
     </div>
