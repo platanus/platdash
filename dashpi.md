@@ -161,9 +161,17 @@ We need to register the script to start on boot as kiosk
 sudo update-rc.d dashboard defaults
 ```
 
-## Todo
+## Turn off automatically
 
-- Add a cronjob that turn on and of the hdmi signal. Find a way to turn on and of the tv using libcec.
+I wanted to be able to turn on and off the tv using the CEC standard via HDMI, but the tv we bought wasn't CEC compilant :(  
+One alternative was to turn of the HDMI signal with a cronjob and set the tv to auto turn off after a few minutes without signal.  
+But the power coming from the USB port stops flowing when the tv is off so I'd prefer to shut down the PI from a cronjob.
+
+Add it to the root cronjob service running `sudo crontab -e` and adding
+
+```
+0       20      *       *       1,2,3,4,5 /sbin/shutdown -h now
+```
 
 ## References
 - http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/
