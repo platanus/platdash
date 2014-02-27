@@ -43,18 +43,23 @@ sudo rpi-update
 
 ### Configure your monitor resolution
 
+Find the TV supported modes, here I search for 1920x1080 60hz. That is `hdmi_mode=16` on the `hdmi_group=1`
+Select the group depending on the results of the supported modes
+
+```bash
+tvservice -d edid
+edidparser edid
+```
+
 Add this to the `/boot/config.txt` file
 
 ```
-# 1900x1200 at 32bit depth, DMT mode
+hdmi_group=1    # CEA=1, DMT=2
+hdmi_mode=16
 disable_overscan=1
-framebuffer_width=1900
-framebuffer_height=1200
-framebuffer_depth=32
-framebuffer_ignore_alpha=1
-hdmi_pixel_encoding=1
-hdmi_group=2
 ```
+Also we want to disable overscan to prevent black lines on the edges of the screen. This may produce that your images gets cropped.
+The best solution is disable overscan in the tv. *Check the display menu options (it may be called "just scan", "screen fit", "HD size", "full pixel", "unscaled", "dot by dot", "native" or "1:1)*
 
 ## Start the browser on boot
 
@@ -164,6 +169,8 @@ sudo update-rc.d dashboard defaults
 - http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/
 - https://gist.github.com/petehamilton/5705374
 - http://www.fusonic.net/en/blog/2013/07/31/diy-info-screen-using-raspberry-pi-dashing/
-http://blogs.wcode.org/2013/09/howto-boot-your-raspberry-pi-into-a-fullscreen-browser-- kiosk/
+- http://blogs.wcode.org/2013/09/howto-boot-your-raspberry-pi-into-a-fullscreen-browser
 - https://github.com/MobilityLab/TransitScreen/wiki/Raspberry-Pi
 - http://nyxi.eu/blog/2013/04/15/raspbian-libcec/
+- http://weblogs.asp.net/bleroy/archive/2013/04/10/getting-your-raspberry-pi-to-output-the-right-resolution.aspx
+- http://elinux.org/R-Pi_Troubleshooting
