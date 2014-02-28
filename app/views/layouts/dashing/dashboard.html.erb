@@ -17,11 +17,16 @@
     <link rel="icon" href="/favicon.ico">
   </head>
   <body>
-    <div class="header">
-      <%= image_tag("logo_main.svg", height: '40px') %>
-      <span class="logo">platanus</span>
-    </div>
     <div id="container">
+      <div class="header">
+        <div class="platanus gs_w" data-row="1" data-col="1" data-sizex="4" style="background: #28b9ef;">
+          <%= image_tag("logo_main.svg", height: '40px') %>
+          <span class="logo">platanus</span>
+        </div>
+        <div class="platanus gs_w" data-row="1" data-col="5" data-sizex="2" style="background: #BA0000;">
+          <%= image_tag("logo_qh.svg", height: '40px') %>
+        </div>
+      </div>
       <%= yield %>
     </div>
 

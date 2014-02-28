@@ -7,7 +7,17 @@
   vertical-align: middle;
 }
 
+#container{
+  padding-top: 0;
+}
+
 .header{
-  padding: 3px;
-  padding-bottom: 0px
+  height: 46px;
+
+  .gs_w {
+      z-index: 2;
+      position: absolute;
+      background: rgb(49, 49, 49);
+      text-align: center
+  }
 }
