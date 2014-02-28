@@ -12,12 +12,15 @@
 }
 
 .header{
-  height: 46px;
+  height: 48px;
 
   .gs_w {
       z-index: 2;
       position: absolute;
       background: rgb(49, 49, 49);
-      text-align: center
+      text-align: center;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 2px;
   }
 }
