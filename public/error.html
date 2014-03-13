@@ -23,6 +23,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
   <script type="text/javascript">
 
+  var url = "http://dash.platan.us/dashing/dashboards";
   var date = moment(new Date());
   var regex = /Error Page/g;
   
@@ -34,11 +35,10 @@
       time.text(date.fromNow());
 
 
-      $.get("http://dash.platan.us/dashing/dashboards")
-      //$.get("http://localhost:8000/error.html")
+      $.get(url)
         .done(function(data,status){
-          if(!data.match(regex)[1]){
-            window.location.reload();
+          if(!regex.test(data)){
+            window.location.href = url;
           }
         })
         .fail(function(){
