@@ -7,18 +7,20 @@
 // ----------------------------------------------------------------------------
 .widget-pricing {
 
+	background-color: transparent;
   	vertical-align: top !important;
   	padding: 0 !important;
-	background-color: transparent;
 
 	h1 {
-		background: magenta;
-		font-size: 12px;
+		background: #333;
+		color: #EEE;
+		font-size: 16px;
 		margin: 0px;
 		margin-bottom: 4px;
 	}
 
 	li {
+		box-sizing: border-box;
 		background: gray;
 		color: #EEE;
 		text-shadow: 2px 2px #333;
@@ -27,17 +29,18 @@
 		width: 100%;
 		height: 50px;
 		margin-bottom: 4px;
+		border: 5px solid rgba(255,255,255,0.3);
 	}
 
 	.label {
 		position: absolute;
-		top: 10px;
+		top: 6px;
 		left: 10px;
 	}
 
 	.value {
 		position: absolute;
-		top: 4px;
+		top: -1px;
 		font-size: 30px;
 		right: 10px;
 	}

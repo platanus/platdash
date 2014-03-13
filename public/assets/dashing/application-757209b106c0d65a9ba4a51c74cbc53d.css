@@ -1397,13 +1397,12 @@
 .green {
   color: rgba(77, 158, 51, 0.53); }
 .widget-pricing {
-  background-color: transparent;
   vertical-align: top !important;
-  padding: 0 !important; }
+  padding: 0 !important;
+  background-color: transparent; }
   .widget-pricing h1 {
-    background: #333;
-    color: #EEE;
-    font-size: 16px;
+    background: magenta;
+    font-size: 12px;
     margin: 0px;
     margin-bottom: 4px; }
   .widget-pricing li {
