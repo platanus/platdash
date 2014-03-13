@@ -1,0 +1,13 @@
+<!-- Your new widget html -->
+<!-- <h1 class="title" data-bind="title"></h1> -->
+
+<h1>PRICING - CRAWLER ERROR RATE - v0.1</h1>
+
+<ul>
+  	<li data-foreach-item="crawlers" data-bind-id="item.name" data-bind-style="item.color">
+  	  	<div data-bind="item.name" class="label">Ripley</div>
+	  	<div data-bind="item.error_rate" class="value">10</div>
+	</li>
+</ul>
+
+<p class="updated-at" data-bind="updatedAtMessage"></p>
