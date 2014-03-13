@@ -104,6 +104,7 @@ Create a script in `/etc/pi/dashboard` with the code that will run chromium in k
 chromium-browser \
 --kiosk \
 --ignore-certificate-errors \
+--disable-web-security \
 --disable-restore-session-state \
 --start-maximized \
 --incognito \
