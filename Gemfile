@@ -39,6 +39,8 @@ gem 'jbuilder', '~> 1.2'
 # Use http client to retrieve web resources
 gem 'httpclient'
 
+gem 'aws-sdk'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
