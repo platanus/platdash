@@ -25,7 +25,7 @@ dashing_ec2 = DashingEC2.new({
 # once every 5 minutes is kind of pointless.  You've been warned. :)
 #
 
-Dashing.scheduler.every '10m', :first_in => 0 do |job|
+Dashing.scheduler.every '5m', :first_in => 0 do |job|
     cpu_usage = [
         {name: 'augustijn', instance_id: "i-4b1fc765", region: 'us-east-1'},
         {name: 'szot', instance_id: "i-17050370", region: 'us-east-1'},
