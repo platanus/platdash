@@ -1,0 +1,14 @@
+<h1 class="title" data-bind="title"></h1>
+
+<ul>
+  <li class="attendee" data-foreach-item="attendees">
+    <img class="gravatar" data-bind-src="item.gravatar" width="62px" height="62px"/>
+  </li>
+</ul>
+
+<p class="more-info">
+    <span data-bind="attendeesMessage"></span>
+    <span class="value" data-bind="attendees.length"></span>
+    <span>hoy</span>
+</p>
+<p class="updated-at" data-bind="updatedAtMessage"></p>
