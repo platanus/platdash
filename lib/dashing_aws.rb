@@ -1,9 +1,9 @@
-#lib/dashing_ec2.rb
+#lib/dashing_aws.rb
 
 require 'aws-sdk'
 require 'time'
 
-class DashingEC2
+class DashingAWS
 
     def initialize(options)
         @access_key_id = options[:access_key_id]
@@ -23,7 +23,7 @@ class DashingEC2
     #   `get_metric_statistics()`, although all are optional.  Also:
     #   * `:duration` - If supplied, and no start_time or end_time are supplied, then start_time
     #     and end_time will be computed based on this value in seconds.  Defaults to 6 hours.
-    def getInstanceStats(instance_id, region, metric_name, type=:average, options={})
+    def getInstanceStats(instance_id, region, metric_name, namespace='AWS/EC2', type=:average, options={})
         if type == :average
             statName = "Average"
         elsif type == :maximum
@@ -42,17 +42,19 @@ class DashingEC2
         end
 
         # Build a default set of options to pass to get_metric_statistics
+        instanceIdName = (namespace=='AWS/EC2') ? "InstanceId" : "DBInstanceIdentifier"
         duration = (options[:duration] or (60*60*6)) # Six hours
         start_time = (options[:start_time] or (Time.now - duration))
         end_time = (options[:end_time] or (Time.now))
+        dimensions = (options[:dimensions] or [{name: instanceIdName, value: instance_id}])
         get_metric_statistics_options = {
-            namespace: "AWS/EC2",
+            namespace: namespace,
             metric_name: metric_name,
             statistics: [statName],
             start_time: start_time.utc.iso8601,
             end_time: end_time.utc.iso8601,
             period: (options[:period] or (60 * 5)), # Default to 5 min stats
-            dimensions: (options[:dimensions] or [{name: "InstanceId", value: instance_id}])
+            dimensions: dimensions
         }
 
         # Go get stats
