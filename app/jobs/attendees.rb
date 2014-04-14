@@ -10,6 +10,7 @@ key_file = ENV['GOOGLE_SERVICE_PK_FILE'] # File containing your private key
 key_secret = ENV['GOOGLE_SERVICE_KEY_SECRET'] # Password to unlock private key
 calendarID = ENV['ATTENDEE_CALENDAR'] # Calendar ID.
 eventId = ENV['ATTENDEE_EVENT'] # Event ID
+defaultImg = ENV['DEFAULT_GRAVATAR'] # Url to image to show as default when no gravatar
 
 # Get the Google API client
 client = Google::APIClient.new(:application_name => 'Platanus Dashboard',
@@ -61,6 +62,7 @@ Dashing.scheduler.every '60s', :first_in => 4 do |job|
   accepted = accepted.map do |attendee|
     hash = Digest::MD5.hexdigest(attendee.email.downcase)
     attendee[:gravatar] = "http://www.gravatar.com/avatar/#{hash}"
+    attendee[:gravatar] += "?default=#{defaultImg}" if defaultImg
     attendee
   end
 
