@@ -1,13 +1,20 @@
-<h1 class="title" data-bind="title"></h1>
+<div data-renderif="event">
+    <h1 class="title">
+        <span data-bind="event.title"></span>
+        <span class="counter" data-bind="event.total_attendees"></span>
+    </h1>
+    <ul class="clearfix">
+      <li class="attendee" data-foreach-item="event.attendees">
+        <img class="gravatar" data-bind-src="item.gravatar" width="62px" height="62px"/>
+        <div class="counter" data-bind="'+%{extras}' | interpolate {'extras': 'item.additionalGuests'}" data-insertif="item.additionalGuests"></div>
+      </li>
+    </ul>
 
-<ul class="clearfix">
-  <li class="attendee" data-foreach-item="attendees">
-    <img class="gravatar" data-bind-src="item.gravatar" width="62px" height="62px"/>
-    <div class="counter" data-bind="'+%{extras}' | interpolate {'extras': 'item.additionalGuests'}" data-insertif="item.additionalGuests"></div>
-  </li>
-</ul>
-
-<p class="more-info">
-    <span data-bind="summaryMessage | interpolate {'total': 'total_attendees'}"></span>
-</p>
-<p class="updated-at" data-bind="updatedAtMessage"></p>
+    <p class="more-info">
+        <span data-bind="detailMessage"></span>
+    </p>
+    <p class="updated-at" data-bind="updatedAtMessage"></p>
+</div>
+<div data-hideif="event">
+    <h1 class="title" data-bind="noEventMessage"></h1>
+</div>

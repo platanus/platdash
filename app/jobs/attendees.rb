@@ -57,26 +57,39 @@ Dashing.scheduler.every '60s', :first_in => 4 do |job|
                               }
                           )
 
-  event = events.data.items.first
-  attendees = event.attendees
+  # Set the event if there is one found
+  if events.data.items.count > 0
+    # Get the first matching event
+    calendar_event = events.data.items.first
 
-  accepted = attendees.select {|attendee| attendee.responseStatus == 'accepted'}
+    # Get only the attedees that had accepted
+    accepted_attendees = calendar_event.attendees.select {|attendee| attendee.responseStatus == 'accepted'}
 
-  accepted = accepted.map do |attendee|
-    email = attendee.email.downcase
+    # Prepare the attendees object
+    accepted_attendees = accepted_attendees.map do |attendee|
+      email = attendee.email.downcase
 
-    # Force additional guests property
-    attendee['additionalGuests'] = attendee['additionalGuests'] || 0
+      # Force additional guests property
+      attendee['additionalGuests'] = attendee['additionalGuests'] || 0
 
-    # Set the gravatar url
-    hash = Digest::MD5.hexdigest(email)
-    attendee[:gravatar] = "http://www.gravatar.com/avatar/#{hash}"
-    attendee[:gravatar] += "?default=#{defaultImg}" if defaultImg
-    attendee
+      # Set the gravatar url
+      hash = Digest::MD5.hexdigest(email)
+      attendee[:gravatar] = "http://www.gravatar.com/avatar/#{hash}"
+      attendee[:gravatar] += "?default=#{defaultImg}" if defaultImg
+      attendee
+    end
+
+    # Event hash to pass to dashing
+    event = {
+      title: calendar_event.summary,
+      attendees: accepted_attendees,
+      total_attendees: accepted_attendees.reduce(accepted_attendees.length){|r, v| r + v['additionalGuests']},
+    }
   end
 
-  total_with_extras = accepted.reduce(accepted.length){|r, v| r + v['additionalGuests']}
-
   # Update the dashboard
-  Dashing.send_event('attendees', { attendees: accepted, total_attendees: total_with_extras, tomorrow_event: show_tomorrow_event })
+  Dashing.send_event('attendees', {
+    event: event,
+    tomorrow_event: show_tomorrow_event
+  })
 end
