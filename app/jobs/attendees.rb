@@ -2,6 +2,7 @@
 
 require 'google/api_client'
 require 'date'
+require 'time'
 require 'digest/md5'
 
 # Update these to match your own apps credentials
@@ -11,6 +12,7 @@ key_secret = ENV['GOOGLE_SERVICE_KEY_SECRET'] # Password to unlock private key
 calendarID = ENV['ATTENDEE_CALENDAR'] # Calendar ID.
 eventId = ENV['ATTENDEE_EVENT'] # Event ID
 defaultImg = ENV['DEFAULT_GRAVATAR'] # Url to image to show as default when no gravatar
+next_event_time = ENV['NEXT_EVENT_TIME'] || '14:00' # Time to start showing the next event
 
 # Get the Google API client
 client = Google::APIClient.new(:application_name => 'Platanus Dashboard',
@@ -40,8 +42,9 @@ Dashing.scheduler.every '60s', :first_in => 4 do |job|
   calendar = client.discovered_api('calendar','v3')
 
   # Start and end dates
-  startDate = Date.today.rfc3339
-  endDate = Date.today.next_day.rfc3339
+  show_tomorrow_event = Time.now >= Time.parse(next_event_time)
+  startDate = !show_tomorrow_event ? Date.today.rfc3339 : Date.today.rfc3339
+  endDate = !show_tomorrow_event ? Date.today.next_day.rfc3339 : Date.today.next_day(2).rfc3339
 
   # Get the events
   events = client.execute(:api_method => calendar.events.instances,
@@ -75,5 +78,5 @@ Dashing.scheduler.every '60s', :first_in => 4 do |job|
   total_with_extras = accepted.reduce(accepted.length){|r, v| r + v['additionalGuests']}
 
   # Update the dashboard
-  Dashing.send_event('attendees', { attendees: accepted, total_attendees: total_with_extras })
+  Dashing.send_event('attendees', { attendees: accepted, total_attendees: total_with_extras, tomorrow_event: show_tomorrow_event })
 end

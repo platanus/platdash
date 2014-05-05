@@ -8,8 +8,6 @@
 </ul>
 
 <p class="more-info">
-    <span data-bind="attendeesMessage"></span>
-    <span class="value" data-bind="total_attendees"></span>
-    <span>hoy</span>
+    <span data-bind="summaryMessage | interpolate {'total': 'total_attendees'}"></span>
 </p>
 <p class="updated-at" data-bind="updatedAtMessage"></p>
