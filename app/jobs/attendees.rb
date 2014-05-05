@@ -60,12 +60,20 @@ Dashing.scheduler.every '60s', :first_in => 4 do |job|
   accepted = attendees.select {|attendee| attendee.responseStatus == 'accepted'}
 
   accepted = accepted.map do |attendee|
-    hash = Digest::MD5.hexdigest(attendee.email.downcase)
+    email = attendee.email.downcase
+
+    # Force additional guests property
+    attendee['additionalGuests'] = attendee['additionalGuests'] || 0
+
+    # Set the gravatar url
+    hash = Digest::MD5.hexdigest(email)
     attendee[:gravatar] = "http://www.gravatar.com/avatar/#{hash}"
     attendee[:gravatar] += "?default=#{defaultImg}" if defaultImg
     attendee
   end
 
+  total_with_extras = accepted.reduce(accepted.length){|r, v| r + v['additionalGuests']}
+
   # Update the dashboard
-  Dashing.send_event('attendees', { attendees: accepted })
+  Dashing.send_event('attendees', { attendees: accepted, total_attendees: total_with_extras })
 end
