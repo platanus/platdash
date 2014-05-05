@@ -43,7 +43,7 @@ Dashing.scheduler.every '60s', :first_in => 4 do |job|
 
   # Start and end dates
   show_tomorrow_event = Time.now >= Time.parse(next_event_time)
-  startDate = !show_tomorrow_event ? Date.today.rfc3339 : Date.today.rfc3339
+  startDate = !show_tomorrow_event ? Date.today.rfc3339 : Date.today.next_day.rfc3339
   endDate = !show_tomorrow_event ? Date.today.next_day.rfc3339 : Date.today.next_day(2).rfc3339
 
   # Get the events
@@ -57,8 +57,8 @@ Dashing.scheduler.every '60s', :first_in => 4 do |job|
                               }
                           )
 
-  lunch = events.data.items.first
-  attendees = lunch.attendees
+  event = events.data.items.first
+  attendees = event.attendees
 
   accepted = attendees.select {|attendee| attendee.responseStatus == 'accepted'}
 
