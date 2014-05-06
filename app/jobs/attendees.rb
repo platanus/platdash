@@ -13,6 +13,7 @@ calendarID = ENV['ATTENDEE_CALENDAR'] # Calendar ID.
 eventId = ENV['ATTENDEE_EVENT'] # Event ID
 defaultImg = ENV['DEFAULT_GRAVATAR'] # Url to image to show as default when no gravatar
 next_event_time = ENV['NEXT_EVENT_TIME'] || '14:00' # Time to start showing the next event
+next_event_timezone = ENV['NEXT_EVENT_TIMEZONE'] # Time zone to parse the next event time in
 
 # Get the Google API client
 client = Google::APIClient.new(:application_name => 'Platanus Dashboard',
@@ -42,7 +43,7 @@ Dashing.scheduler.every '60s', :first_in => 4 do |job|
   calendar = client.discovered_api('calendar','v3')
 
   # Start and end dates
-  show_tomorrow_event = Time.now >= Time.parse(next_event_time)
+  show_tomorrow_event = Time.now >= Time.parse(next_event_time + (next_event_timezone || ""))
   startDate = !show_tomorrow_event ? Date.today.rfc3339 : Date.today.next_day.rfc3339
   endDate = !show_tomorrow_event ? Date.today.next_day.rfc3339 : Date.today.next_day(2).rfc3339
 
