@@ -1,1 +1,1 @@
-TODO: write an awesome README file
+Check out http://shopify.github.com/dashing for more information.
