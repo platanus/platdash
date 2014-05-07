@@ -40,6 +40,10 @@ SCHEDULER.every '1h', :first_in => 0 do |job|
 		:date_interval=>days_interval.days
 	)
 
+	# Filter the actors to show only the ones in the defined team
+	team_members = backend.get_team_members(ENV['MEMBERS_FROM_TEAM']) if ENV['MEMBERS_FROM_TEAM']
+	actors = actors.select {|actor| team_members.include?(actor[0]) } if team_members
+
 	rows = actors.map do |actor|
 		actor_github_info = backend.user(actor[0])
 

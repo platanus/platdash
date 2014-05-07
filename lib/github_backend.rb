@@ -262,6 +262,18 @@ class GithubBackend
 		return repos
 	end
 
+	def get_team_members(team)
+		team_org = team.split("/").first
+		team_name =	team.split("/").last
+		members = []
+		begin
+			team_id = @client.org_teams(team_org).find {|teams|teams.slug == team_name }.id
+			members = members.concat(@client.team_members(team_id).map {|member|member.login})
+		rescue Octokit::Error => exception
+			# Raven.capture_exception(exception)
+		end
+	end
+
 	def period_to_offset(period)
 		case period
 		when 'day'
