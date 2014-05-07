@@ -16,7 +16,6 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
     backports (3.6.0)
-    buftok (0.2.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -33,7 +32,6 @@ GEM
       sprockets
       thin
       thor
-    equalizer (0.0.9)
     ethon (0.7.0)
       ffi (>= 1.3.0)
     eventmachine (1.0.3)
@@ -54,24 +52,18 @@ GEM
       signet (>= 0.5.0)
       uuidtools (>= 2.1.0)
     hike (1.2.3)
-    http (0.5.0)
-      http_parser.rb
-    http_parser.rb (0.6.0)
     httpclient (2.3.4.1)
     i18n (0.6.9)
     json (1.8.1)
     jwt (0.1.12)
     launchy (2.4.2)
       addressable (~> 2.3)
-    memoizable (0.4.2)
-      thread_safe (~> 0.3, >= 0.3.1)
     mini_portile (0.5.3)
     minitest (5.3.3)
     mixpanel_client (4.1.0)
       typhoeus (~> 0.6.7)
     multi_json (1.10.0)
     multipart-post (2.0.0)
-    naught (1.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     rack (1.5.2)
@@ -88,7 +80,6 @@ GEM
       faraday (>= 0.9.0.rc5)
       jwt (>= 0.1.5)
       multi_json (>= 1.0.0)
-    simple_oauth (0.2.0)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -112,17 +103,6 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.3)
     tilt (1.4.1)
-    twitter (5.8.0)
-      addressable (~> 2.3)
-      buftok (~> 0.2.0)
-      equalizer (~> 0.0.9)
-      faraday (~> 0.9.0)
-      http (~> 0.5.0)
-      http_parser.rb (~> 0.6.0)
-      json (~> 1.8)
-      memoizable (~> 0.4.0)
-      naught (~> 1.0)
-      simple_oauth (~> 0.2.0)
     typhoeus (0.6.8)
       ethon (>= 0.7.0)
     tzinfo (1.1.0)
@@ -139,4 +119,3 @@ DEPENDENCIES
   google-api-client
   httpclient
   mixpanel_client
-  twitter (>= 5.0.0)
