@@ -16,3 +16,8 @@ gem 'google-api-client'
 
 # Add active support from rails
 gem 'activesupport'
+
+# To get access to github stats
+gem 'octokit'
+gem 'faraday', '~> 0.9'
+gem 'faraday-http-cache'

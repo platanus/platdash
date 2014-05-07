@@ -1,0 +1,34 @@
+<h1 class="title">
+  Leaderboard
+</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th data-foreach-header="headers" data-bind="value"></th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+  <tr data-foreach-row="rows">
+	<td class="col-icon">
+		<img data-bind-src="row.icon" width="32px" height="32px">
+	</td>
+	<td class="col-name">
+		<span data-bind="row.nickname"></span>
+	</td>
+	<td class="col-score value">
+		<div class="current-score" data-bind="row.current_score" data-bind-title="row.current_score_desc"></div>
+		<div class="previous-score">(<span data-bind="row.previous_score" data-bind-title="row.previous_score_desc"></span>)</div>
+	</td>
+    <td class="col-trend">
+      <span data-bind-class="row.trend_class | prepend 'trend-'">
+        <span data-showif="row.trend_class" data-bind-class="row.trend_class | prepend 'icon-arrow-'"></span>
+      </span>
+    </td>
+  </tr>
+</table>
+
+<p class="more-info">
+  Data from <span data-bind="date_since"></span> to <span data-bind="date_until"></span>
+</p>

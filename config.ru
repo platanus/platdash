@@ -1,5 +1,16 @@
 require 'dashing'
 require 'active_support/all'
+require 'time'
+
+# Verbose logging in Octokit
+Octokit.configure do |config|
+  config.middleware.response :logger unless ENV['RACK_ENV'] == 'production'
+end
+
+Octokit.auto_paginate = true
+
+ENV['SINCE'] ||= '12.months.ago.beginning_of_month'
+ENV['SINCE'] = ENV['SINCE'].to_datetime.to_s rescue eval(ENV['SINCE']).to_s
 
 configure do
   set :auth_token, 'YOUR_AUTH_TOKEN'
