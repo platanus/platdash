@@ -237,6 +237,18 @@ class GithubBackend
 		if opts.repos != nil
 			repos = repos.concat(opts.repos)
 		end
+		if opts.teams != nil
+			opts.teams.each do |team|
+				team_org = team.split("/").first
+				team_name = team.split("/").last
+				begin
+					team_id = @client.org_teams(team_org).find {|teams|teams.slug == team_name }.id
+					repos = repos.concat(@client.team_repos(team_id).map {|repo|repo.full_name})
+				rescue Octokit::Error => exception
+					# Raven.capture_exception(exception)
+				end
+			end
+		end
 		if opts.orgas != nil
 			opts.orgas.each do |orga|
 				begin
