@@ -1,10 +1,10 @@
-<div data-renderif="event">
+<div data-renderif="calendar_event">
     <h1 class="title">
-        <span data-bind="event.title"></span>
-        <span class="counter" data-bind="event.total_attendees"></span>
+        <span data-bind="calendar_event.title"></span>
+        <span class="counter" data-bind="calendar_event.total_attendees"></span>
     </h1>
     <ul class="clearfix">
-      <li class="attendee" data-foreach-item="event.attendees">
+      <li class="attendee" data-foreach-item="calendar_event.attendees">
         <img class="gravatar" data-bind-src="item.gravatar" width="62px" height="62px"/>
         <div class="counter" data-bind="'+%{extras}' | interpolate {'extras': 'item.additionalGuests'}" data-insertif="item.additionalGuests"></div>
       </li>
@@ -15,6 +15,6 @@
     </p>
     <p class="updated-at" data-bind="updatedAtMessage"></p>
 </div>
-<div data-hideif="event">
+<div data-hideif="calendar_event">
     <h1 class="title" data-bind="noEventMessage"></h1>
 </div>

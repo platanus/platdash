@@ -90,7 +90,7 @@ SCHEDULER.every '60s', :first_in => 4 do |job|
 
   # Update the dashboard
   send_event('attendees', {
-    event: event,
+    calendar_event: event,
     tomorrow_event: show_tomorrow_event
   })
 end
