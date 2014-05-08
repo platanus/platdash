@@ -234,6 +234,10 @@ class GithubBackend
 	end
 
 	def get_repos(opts)
+		if @repos
+			return @repos
+		end
+
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		repos = []
 		if opts.repos != nil
@@ -260,7 +264,7 @@ class GithubBackend
 				end
 			end
 		end
-
+		@repos = repos
 		return repos
 	end
 
