@@ -16,6 +16,7 @@ SCHEDULER.every '1h', :first_in => 0 do |job|
 		'issues_closed'=>5,
 		'pulls_opened'=>10,
 		'pulls_closed'=>5,
+		'pulls_merged'=>20,
 		'pulls_comments'=>1,
 		'upstream_pulls_opened'=>15,
 		'upstream_pulls_closed'=>5,

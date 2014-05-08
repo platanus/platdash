@@ -94,6 +94,7 @@ class GithubBackend
 				begin
 					@client.pulls(repo, {:state => state, :since => opts.since}).each do |pull|
 						state_desc = (state == 'open') ? 'opened' : 'closed'
+						state_desc = 'merged' if state == 'closed' and pull.merged_at
 						next if not pull.user
 						events << GithubDashing::Event.new({
 							type: "pulls_#{state_desc}",
