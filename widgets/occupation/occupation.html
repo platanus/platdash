@@ -1,0 +1,30 @@
+<h1 class="title" data-bind="title"></h1>
+<table>
+  <thead>
+
+  </thead>
+  <tbody>
+  </tbody>
+  <tr data-foreach-item="items">
+  <td class="col-icon">
+    <img data-bind-src="item.avatar" width="32px" height="32px">
+  </td>
+  <td class="col-name" style="text-align:left;">
+    <span data-bind="item.name"></span>
+  </td>
+  <td class="col-score value">
+    <div class="current-score" data-bind="item.percent" ></div>
+  </td>
+  </tr>
+</table>
+<!--
+<ul>
+  <li data-foreach-item="items">
+    <img data-bind-src="item.avatar" width="62px" height="62px"/>
+    <span class="label" data-bind="item.name"></span>
+    <span class="value" data-bind="item.percent">%</span>
+  </li>
+</ul> -->
+
+<p class="more-info" data-bind="moreinfo"></p>
+<p class="updated-at" data-bind="updatedAtMessage"></p>
