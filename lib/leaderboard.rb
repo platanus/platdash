@@ -30,7 +30,8 @@ class Leaderboard
 			@backend.issue_comment_count_by_author(opts).to_a +
 			@backend.pull_comment_count_by_author(opts).to_a +
 			@backend.issue_count_by_author(opts).to_a +
-			@backend.pull_count_by_author(opts).to_a
+			@backend.pull_count_by_author(opts).to_a +
+			@backend.upstream_pulls_count_by_author(opts).to_a
 		)
 
 		# TODO Pretty much everything below would be better expressed in

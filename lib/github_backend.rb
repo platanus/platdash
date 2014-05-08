@@ -161,6 +161,41 @@ class GithubBackend
 	end
 
 	# Returns EventCollection
+	def upstream_pulls_count_by_author(opts)
+		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
+		opts.repos_type = 'fork'
+		events = GithubDashing::EventCollection.new
+		self.get_repos(opts, true).each do |repo|
+			['open','closed'].each do |state|
+				begin
+					gh_repo = @client.repo(repo)
+					gh_repo_branches = @client.branches(repo)
+
+					gh_repo_branches.each do |branch|
+						pulls = @client.pulls(gh_repo.parent.full_name, {:state => state, :since => opts.since, :head => "#{repo.split("/")[0]}:#{branch.name}"})
+						pulls = pulls.select {|pull|pull.created_at.to_datetime > opts.since.to_datetime}
+
+						pulls.each do |pull|
+							state_desc = (state == 'open') ? 'opened' : 'closed'
+							state_desc = 'merged' if state == 'closed' and pull.merged_at
+
+							events << GithubDashing::Event.new({
+								type: "upstream_pulls_#{state_desc}",
+								datetime: pull.created_at.to_datetime,
+								key: pull.user.login,
+							})
+						end
+					end
+				rescue Octokit::Error => exception
+					# Raven.capture_exception(exception)
+				end
+			end
+		end
+
+		return events
+	end
+
+	# Returns EventCollection
 	def issue_count_by_status(opts)
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		events = GithubDashing::EventCollection.new
@@ -233,8 +268,8 @@ class GithubBackend
 		# TODO
 	end
 
-	def get_repos(opts)
-		if @repos
+	def get_repos(opts, force = false)
+		if @repos and not force
 			return @repos
 		end
 
@@ -264,7 +299,7 @@ class GithubBackend
 				end
 			end
 		end
-		@repos = repos
+		@repos = repos if not force
 		return repos
 	end
 
