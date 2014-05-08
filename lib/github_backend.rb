@@ -31,28 +31,29 @@ class GithubBackend
 			# Can't limit timeframe
 			begin
 				stats = @client.contributors_stats(repo) || []
-				stats.each do |stat|
-					stat.weeks.each do |week|
-						events << GithubDashing::Event.new({
-							type: "commits_additions",
-							key: stat.author.login,
-							datetime: Time.at(week.w).to_datetime,
-							value: week.a
-						}) if week.a > 0
-						events << GithubDashing::Event.new({
-							type: "commits_deletions",
-							key: stat.author.login,
-							datetime: Time.at(week.w).to_datetime,
-							value: week.d
-						}) if week.d > 0
-						events << GithubDashing::Event.new({
-							type: "commits",
-							key: stat.author.login,
-							datetime: Time.at(week.w).to_datetime,
-							value: week.c
-						}) if week.c > 0
+				if stats.respond_to? "each"
+					stats.each do |stat|
+						stat.weeks.each do |week|
+							events << GithubDashing::Event.new({
+								type: "commits_additions",
+								key: stat.author.login,
+								datetime: Time.at(week.w).to_datetime,
+								value: week.a
+							}) if week.a > 0
+							events << GithubDashing::Event.new({
+								type: "commits_deletions",
+								key: stat.author.login,
+								datetime: Time.at(week.w).to_datetime,
+								value: week.d
+							}) if week.d > 0
+							events << GithubDashing::Event.new({
+								type: "commits",
+								key: stat.author.login,
+								datetime: Time.at(week.w).to_datetime,
+								value: week.c
+							}) if week.c > 0
+						end
 					end
-
 				end
 			rescue Octokit::Error => exception
 				# Raven.capture_exception(exception)
