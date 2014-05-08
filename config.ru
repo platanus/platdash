@@ -1,4 +1,5 @@
 require 'dashing'
+require 'active_support'
 require 'active_support/all'
 require 'time'
 
