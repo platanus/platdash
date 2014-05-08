@@ -35,6 +35,7 @@ SCHEDULER.every '1h', :first_in => 0 do |job|
 		:orgas=>(ENV['ORGAS'].split(',') if ENV['ORGAS']),
 		:repos=>(ENV['REPOS'].split(',') if ENV['REPOS']),
 		:teams=>(ENV['TEAMS'].split(',') if ENV['TEAMS']),
+		:repos_type=>(ENV['REPOS_TYPE'] if ENV['REPOS_TYPE']),
 		:since=>date_since, # not using ENV because 'since' is likely higher than needed
 		:weighting=>weighting,
 		:limit=>15,

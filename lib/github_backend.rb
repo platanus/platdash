@@ -249,7 +249,7 @@ class GithubBackend
 				team_name = team.split("/").last
 				begin
 					team_id = @client.org_teams(team_org).find {|teams|teams.slug == team_name }.id
-					repos = repos.concat(@client.team_repos(team_id).map {|repo|repo.full_name})
+					repos = repos.concat(@client.team_repos(team_id, {:type => opts.repos_type || 'owner'}).map {|repo|repo.full_name})
 				rescue Octokit::Error => exception
 					# Raven.capture_exception(exception)
 				end
@@ -258,7 +258,7 @@ class GithubBackend
 		if opts.orgas != nil
 			opts.orgas.each do |orga|
 				begin
-					repos = repos.concat(@client.org_repos(orga, {:type => 'owner'}).map {|repo|repo.full_name})
+					repos = repos.concat(@client.org_repos(orga, {:type => opts.repos_type || 'owner'}).map {|repo|repo.full_name})
 				rescue Octokit::Error => exception
 					# Raven.capture_exception(exception)
 				end
