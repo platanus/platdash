@@ -25,13 +25,35 @@ class Leaderboard
 		date_interval = opts.date_interval || 30.days
 		date_since = Time.at(date_until.to_i - date_interval*2)
 
+		contributor_stats_by_author = nil
+		issue_comment_count_by_author = nil
+		pull_comment_count_by_author = nil
+		issue_count_by_author = nil
+		pull_count_by_author = nil
+		upstream_pulls_count_by_author = nil
+
+		thr1 = Thread.new {
+			contributor_stats_by_author = @backend.contributor_stats_by_author(opts).to_a
+			issue_comment_count_by_author = @backend.issue_comment_count_by_author(opts).to_a
+			pull_comment_count_by_author = @backend.pull_comment_count_by_author(opts).to_a
+		}
+
+		thr2 = Thread.new {
+			issue_count_by_author = @backend.issue_count_by_author(opts).to_a
+			pull_count_by_author = @backend.pull_count_by_author(opts).to_a
+			upstream_pulls_count_by_author = @backend.upstream_pulls_count_by_author(opts).to_a
+		}
+
+		thr1.join
+		thr2.join
+
 		events = GithubDashing::EventCollection.new(
-			@backend.contributor_stats_by_author(opts).to_a +
-			@backend.issue_comment_count_by_author(opts).to_a +
-			@backend.pull_comment_count_by_author(opts).to_a +
-			@backend.issue_count_by_author(opts).to_a +
-			@backend.pull_count_by_author(opts).to_a +
-			@backend.upstream_pulls_count_by_author(opts).to_a
+			contributor_stats_by_author +
+			issue_comment_count_by_author +
+			pull_comment_count_by_author +
+			issue_count_by_author +
+			pull_count_by_author +
+			upstream_pulls_count_by_author
 		)
 
 		# TODO Pretty much everything below would be better expressed in
