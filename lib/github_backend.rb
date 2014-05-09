@@ -172,6 +172,8 @@ class GithubBackend
 					gh_repo = @client.repo(repo)
 					gh_repo_branches = @client.branches(repo)
 
+					next if not gh_repo.parent
+
 					gh_repo_branches.each do |branch|
 						pulls = @client.pulls(gh_repo.parent.full_name, {:state => state, :since => opts.since, :head => "#{repo.split("/")[0]}:#{branch.name}"})
 						pulls = pulls.select {|pull|pull.created_at.to_datetime > opts.since.to_datetime}
