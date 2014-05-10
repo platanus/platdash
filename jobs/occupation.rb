@@ -33,11 +33,11 @@ client.authorization = Signet::OAuth2::Client.new(
 md5 = Digest::MD5.new
 
 calendars = [
-  # {
-  #   name: "J.I.Donoso",
-  #   id: "juan.ignacio@platan.us",
-  #   avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('juan.ignacio@platan.us')}"
-  # },
+  {
+    name: "J.I.Donoso",
+    id: "platan.us_e6muo7in40rsq1jm2jqbtec4hg@group.calendar.google.com",
+    avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('juan.ignacio@platan.us')}"
+  },
   # {
   #   name:"A. Feuerhake",
   #   id: "agustin@platan.us",
