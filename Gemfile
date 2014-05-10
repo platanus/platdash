@@ -14,6 +14,8 @@ gem 'aws-sdk'
 # To get access to calendars
 gem 'google-api-client'
 
+gem 'google_drive'
+
 # Add active support from rails
 gem 'activesupport'
 
