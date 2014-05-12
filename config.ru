@@ -4,9 +4,9 @@ require 'active_support/all'
 require 'time'
 
 # Verbose logging in Octokit
-Octokit.configure do |config|
-  config.middleware.response :logger unless ENV['RACK_ENV'] == 'production'
-end
+# Octokit.configure do |config|
+#   config.middleware.response :logger unless ENV['RACK_ENV'] == 'production'
+# end
 
 Octokit.auto_paginate = true
 
