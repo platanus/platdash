@@ -38,12 +38,12 @@ calendars = [
     id: "platan.us_e6muo7in40rsq1jm2jqbtec4hg@group.calendar.google.com",
     avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('juan.ignacio@platan.us')}"
   },
-  # {
-  #   name:"A. Feuerhake",
-  #   id: "agustin@platan.us",
-  #   avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('agustin@platan.us')}",
-  #   weekly: 40
-  # },
+   {
+    name:"A. Feuerhake",
+    id: "platan.us_76q7fudikh18gu54mb2apvnsc4@group.calendar.google.com",
+    avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('agustin@platan.us')}",
+    weekly: 4
+  },
   # {
   #   name:"J. Bunzli",
   #   id: "platan.us_76q7fudikh18gu54mb2apvnsc4@group.calendar.google.com",
@@ -63,13 +63,13 @@ calendars = [
   {
     name:"J. Garcia",
     id: "platan.us_t34n3p3g40sqlht1l39smrmku4@group.calendar.google.com",
-    avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('julio@platan.us')}"
-  }#,
-  # {
-  #   name:"F. Campos",
-  #   id: "platan.us_76q7fudikh18gu54mb2apvnsc4@group.calendar.google.com",
-  #   avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('felipe@platan.us')}"
-  # },
+    avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('julioggonz@gmail.com')}"
+  },
+  {
+    name:"F. Campos",
+    id: "platan.us_j8rf4o35lq4cvm8h01jskoor4g@group.calendar.google.com",
+    avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('felipecamposclarke@gmail.com')}"
+  },
   # {
   #   name:"I. Baixas",
   #   id: "platan.us_76q7fudikh18gu54mb2apvnsc4@group.calendar.google.com",
@@ -88,14 +88,13 @@ SCHEDULER.every '1m', :first_in => 0 do |job|
     :body => JSON.dump(
       {
         :timeMin => Date.today.rfc3339,
-        :timeMax => (Date.today.next_day + 7).rfc3339,
+        :timeMax => (Date.today + 7).rfc3339,
         :timeZone => "UTC-04:00",
         :items => calendars
       }
 
       ),
     :headers => {'Content-Type' => 'application/json'})
-
 
 calendars.each do |cal|
   cal[:busy_hours] = 0
