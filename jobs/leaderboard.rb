@@ -1,6 +1,5 @@
 require 'json'
 require 'time'
-require 'dashing'
 require 'octokit'
 require 'active_support'
 require 'active_support/core_ext'
