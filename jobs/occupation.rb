@@ -54,17 +54,17 @@ calendars = [
     name:"L. Segovia",
     id: "platan.us_js98bml0b21d2nu09h58ktp7pg@group.calendar.google.com",
     avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('leandro@platan.us')}"
-  }#,
+  },
   # {
   #   name:"E. Blanco",
   #   id: "platan.us_76q7fudikh18gu54mb2apvnsc4@group.calendar.google.com",
   #   avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('emilio@platan.us')}"
   # },
-  # {
-  #   name:"J. Garcia",
-  #   id: "platan.us_76q7fudikh18gu54mb2apvnsc4@group.calendar.google.com",
-  #   avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('julio@platan.us')}"
-  # },
+  {
+    name:"J. Garcia",
+    id: "platan.us_t34n3p3g40sqlht1l39smrmku4@group.calendar.google.com",
+    avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('julio@platan.us')}"
+  }#,
   # {
   #   name:"F. Campos",
   #   id: "platan.us_76q7fudikh18gu54mb2apvnsc4@group.calendar.google.com",
@@ -88,8 +88,7 @@ SCHEDULER.every '1m', :first_in => 0 do |job|
     :body => JSON.dump(
       {
         :timeMin => Date.today.rfc3339,
-        :timeMax => (Date.today + 7).rfc3339,
-
+        :timeMax => (Date.today.next_day + 7).rfc3339,
         :timeZone => "UTC-04:00",
         :items => calendars
       }
@@ -106,14 +105,6 @@ calendars.each do |cal|
   end
   cal[:percent] = ((cal[:busy_hours] * 100 / (cal[:weekly] || 40)).round).to_s + "%"
 end
-
-# response.data.calendars.to_hash.each do |name,cal|
-#   busy_hours = 0
-#   cal['busy'].each do |session|
-#     busy_hours += (Time.parse(session['end']) - Time.parse(session['start'])) / 1.hour
-#   end
-#   items.push({name: name, busy_hours: busy_hours})
-# end
 
   send_event('occupation', {items: calendars})
 end
