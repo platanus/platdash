@@ -7,6 +7,9 @@ module GithubDashing
 		# DateTime object of when the event happened
 		attr_accessor :datetime
 
+		# Repo from the event was taken
+		attr_accessor :repo
+
 		# Optional key (e.g. author name)
 		attr_accessor :key
 

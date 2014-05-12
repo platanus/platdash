@@ -59,6 +59,41 @@ class Leaderboard
 		# TODO Pretty much everything below would be better expressed in
 		# SQL with 1/4th the lines of code
 
+		# Add score for each period
+		def score(events, opts)
+			actors_scored = {}
+			events.each do |actor,actor_data|
+				actor_data['periods'].each do |period,period_data|
+					desc = []
+					period_data['score'] = period_data.inject(0) do |c,(k,v)|
+						weight = opts.weighting.has_key?(k) ? opts.weighting[k] : 0
+						desc.push "(#{k}=#{v} * weight=#{weight})" if v and v.to_i > 0
+						c += (v.to_f * weight.to_f).to_i
+					end
+					period_data['desc'] = desc.join(' + ')
+				end
+				actors_scored[actor] = {
+					'current_score' => 0,
+					'current_desc' => 0,
+					'previous_score' => 0,
+				}
+				if actor_data['periods'].has_key?('current')
+					actors_scored[actor]['current_score'] = actor_data['periods']['current']['score']
+					actors_scored[actor]['current_desc'] = actor_data['periods']['current']['desc']
+				end
+				if actor_data['periods'].has_key?('previous')
+					actors_scored[actor]['previous_score'] = actor_data['periods']['previous']['score']
+					actors_scored[actor]['previous_desc'] = actor_data['periods']['previous']['desc']
+				end
+			end
+
+			# Filter out empties, sort by current score, then previous score (converts to Array)
+			actors_scored = actors_scored.
+				select {|k,v|v['current_score'].to_i > 0 || v['previous_score'].to_i > 0}.
+				sort_by {|k,v|[v['current_score'],v['previoius_score']]}.
+				reverse
+		end
+
 		# Group events by author, then by period
 		events_by_actor = {}
 		events.each do |event|
@@ -71,42 +106,27 @@ class Leaderboard
 			events_by_actor[author]['periods'][period] ||= Hash.new(0)
 			events_by_actor[author]['periods'][period][event.type] += event.value || 1
 		end
+		actors_scored = score(events_by_actor, opts)
 
-		# Add score for each period
-		actors_scored = {}
-		events_by_actor.each do |actor,actor_data|
-			actor_data['periods'].each do |period,period_data|
-				desc = []
-				period_data['score'] = period_data.inject(0) do |c,(k,v)|
-					weight = opts.weighting.has_key?(k) ? opts.weighting[k] : 0
-					desc.push "(#{k}=#{v} * weight=#{weight})" if v and v.to_i > 0
-					c += (v.to_f * weight.to_f).to_i
-				end
-				period_data['desc'] = desc.join(' + ')
-			end
-			actors_scored[actor] = {
-				'current_score' => 0,
-				'current_desc' => 0,
-				'previous_score' => 0,
-			}
-			if actor_data['periods'].has_key?('current')
-				actors_scored[actor]['current_score'] = actor_data['periods']['current']['score']
-				actors_scored[actor]['current_desc'] = actor_data['periods']['current']['desc']
-			end
-			if actor_data['periods'].has_key?('previous')
-				actors_scored[actor]['previous_score'] = actor_data['periods']['previous']['score']
-				actors_scored[actor]['previous_desc'] = actor_data['periods']['previous']['desc']
-			end
+		# Group events by repo, then by period
+		events_by_repo = {}
+		events.each do |event|
+			# Filter by date range
+			next if event.datetime < date_since or event.datetime > date_until
+
+			repo = event.repo
+			period = (event.datetime > Time.at(date_until.to_i - date_interval)) ? 'current' : 'previous'
+			events_by_repo[repo] ||= {'periods' => {}}
+			events_by_repo[repo]['periods'][period] ||= Hash.new(0)
+			events_by_repo[repo]['periods'][period][event.type] += event.value || 1
 		end
-
-		# Filter out empties, sort by current score, then previous score (converts to Array)
-		actors_scored = actors_scored.
-			select {|k,v|v['current_score'].to_i > 0 || v['previous_score'].to_i > 0}.
-			sort_by {|k,v|[v['current_score'],v['previoius_score']]}.
-			reverse
+		repos_scored = score(events_by_repo, opts)
 
 		# Limit to top list
-		actors_scored[0,opts.limit || 10]
+		{
+			actors: actors_scored[0,opts.limit || 10],
+			repos: repos_scored[0,opts.limit || 10]
+		}
 	end
 
 

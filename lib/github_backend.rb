@@ -36,18 +36,21 @@ class GithubBackend
 						stat.weeks.each do |week|
 							events << GithubDashing::Event.new({
 								type: "commits_additions",
+								repo: repo,
 								key: stat.author.login,
 								datetime: Time.at(week.w).to_datetime,
 								value: week.a
 							}) if week.a > 0
 							events << GithubDashing::Event.new({
 								type: "commits_deletions",
+								repo: repo,
 								key: stat.author.login,
 								datetime: Time.at(week.w).to_datetime,
 								value: week.d
 							}) if week.d > 0
 							events << GithubDashing::Event.new({
 								type: "commits",
+								repo: repo,
 								key: stat.author.login,
 								datetime: Time.at(week.w).to_datetime,
 								value: week.c
@@ -73,6 +76,7 @@ class GithubBackend
 					next if not issue.user
 					events << GithubDashing::Event.new({
 						type: "issues_comments",
+						repo: repo,
 						key: issue.user.login,
 						datetime: issue.created_at.to_datetime
 					})
@@ -98,6 +102,7 @@ class GithubBackend
 						next if not pull.user
 						events << GithubDashing::Event.new({
 							type: "pulls_#{state_desc}",
+							repo: repo,
 							key: pull.user.login,
 							datetime: pull.created_at.to_datetime
 						})
@@ -121,6 +126,7 @@ class GithubBackend
 					next if not comment.user
 					events << GithubDashing::Event.new({
 						type: 'pulls_comments',
+						repo: repo,
 						key: comment.user.login,
 						datetime: comment.created_at.to_datetime
 					})
@@ -148,6 +154,7 @@ class GithubBackend
 							# TODO Attribute to closer, not to issue author
 							# type: "issues_#{state_desc}",
 							type: "issues_opened",
+							repo: repo,
 							key: issue.user.login,
 							datetime: issue.created_at.to_datetime
 						})
@@ -219,6 +226,7 @@ class GithubBackend
 					issues.each do |issue|
 						events << GithubDashing::Event.new({
 							type: "issue_count_#{state_desc}",
+							repo: repo,
 							datetime: issue.state == 'open' ? issue.created_at.to_datetime : issue.closed_at.to_datetime,
 							key: issue.state,
 							value: 1
@@ -249,6 +257,7 @@ class GithubBackend
 					pulls.each do |pull|
 						events << GithubDashing::Event.new({
 							type: "pull_count_#{state_desc}",
+							repo: repo,
 							datetime: pull.created_at.to_datetime,
 							key: pull.state,
 							value: 1

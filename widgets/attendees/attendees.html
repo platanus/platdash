@@ -1,4 +1,4 @@
-<div data-renderif="calendar_event">
+<div data-showif="calendar_event">
     <h1 class="title">
         <span data-bind="calendar_event.title"></span>
         <span class="counter" data-bind="calendar_event.total_attendees"></span>
@@ -9,12 +9,11 @@
         <div class="counter" data-bind="'+%{extras}' | interpolate {'extras': 'item.additionalGuests'}" data-insertif="item.additionalGuests"></div>
       </li>
     </ul>
-
-    <p class="more-info">
-        <span data-bind="detailMessage"></span>
-    </p>
-    <p class="updated-at" data-bind="updatedAtMessage"></p>
 </div>
 <div data-hideif="calendar_event">
     <h1 class="title" data-bind="noEventMessage"></h1>
 </div>
+<p class="more-info">
+    <span data-bind="detailMessage"></span>
+</p>
+<p class="updated-at" data-bind="updatedAtMessage"></p>
