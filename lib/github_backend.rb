@@ -302,6 +302,9 @@ class GithubBackend
 				end
 			end
 		end
+		if opts.repos_exclude != nil
+			repos = repos - opts.repos_exclude
+		end
 		@repos = repos if not force
 		return repos
 	end
