@@ -26,27 +26,38 @@ dashing_aws = DashingAWS.new({
 #
 
 SCHEDULER.every '5m', :first_in => 0 do |job|
-    cpu_usage = [
+    ec2_cpu_usage = [
         {name: 'augustijn',     instance_id: "i-4b1fc765", region: 'us-east-1', namespace: 'AWS/EC2'},
         {name: 'szot',          instance_id: "i-17050370", region: 'us-east-1', namespace: 'AWS/EC2'},
         {name: 'kwan',          instance_id: "i-33fcbd62", region: 'us-east-1', namespace: 'AWS/EC2'},
         {name: 'guinness',      instance_id: "i-4d1b212a", region: 'us-east-1', namespace: 'AWS/EC2'},
         {name: 'quehambre',     instance_id: "i-c8e8a9ac", region: 'us-east-1', namespace: 'AWS/EC2'},
-        {name: 'corona',        instance_id: "i-47e7fd22", region: 'us-east-1', namespace: 'AWS/EC2'},
-        {name: 'db-mysql',      instance_id: "platanusdb", region: 'us-east-1', namespace: 'AWS/RDS'},
-        {name: 'db-ghoster',    instance_id: "ghosterdb",  region: 'us-east-1', namespace: 'AWS/RDS'},
-        {name: 'db-postgres',   instance_id: "platanuspg", region: 'us-east-1', namespace: 'AWS/RDS'},
+        {name: 'corona',        instance_id: "i-47e7fd22", region: 'us-east-1', namespace: 'AWS/EC2'}
     ]
 
-    cpu_series = []
-    cpu_usage.each do |item|
-        cpu_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "CPUUtilization", item[:namespace], :average)
+    rds_cpu_usage = [
+        {name: 'db-mysql',      instance_id: "platanusdb", region: 'us-east-1', namespace: 'AWS/RDS'},
+        {name: 'db-ghoster',    instance_id: "ghosterdb",  region: 'us-east-1', namespace: 'AWS/RDS'},
+        {name: 'db-postgres',   instance_id: "platanuspg", region: 'us-east-1', namespace: 'AWS/RDS'}
+    ]
+
+    ec2_cpu_series = []
+    ec2_cpu_usage.each do |item|
+        cpu_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "CPUUtilization", 'AWS/EC2', :average)
         cpu_data[:name] = item[:name]
-        cpu_series.push cpu_data
+        ec2_cpu_series.push cpu_data
+    end
+
+    rds_cpu_series = []
+    rds_cpu_usage.each do |item|
+        cpu_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "CPUUtilization", 'AWS/RDS', :average)
+        cpu_data[:name] = item[:name]
+        rds_cpu_series.push cpu_data
     end
 
     # If you're using the Rickshaw Graph widget: https://gist.github.com/jwalton/6614023
-    send_event "aws-cpu", { series: cpu_series }
+    send_event "ec2-aws-cpu", { series: ec2_cpu_series }
+    send_event "rds-aws-cpu", { series: rds_cpu_series }
 
     # If you're just using the regular Dashing graph widget:
     # send_event "aws-cpu-server1", { points: cpu_series[0][:data] }
