@@ -174,10 +174,16 @@ class GithubBackend
 		opts.repos_type = 'fork'
 		events = GithubDashing::EventCollection.new
 		self.get_repos(opts, true).each do |repo|
+
+			begin
+				gh_repo = @client.repo(repo)
+				gh_repo_branches = @client.branches(repo)
+			rescue Octokit::Error => exception
+				# Raven.capture_exception(exception)
+			end
+
 			['open','closed'].each do |state|
 				begin
-					gh_repo = @client.repo(repo)
-					gh_repo_branches = @client.branches(repo)
 
 					next if not gh_repo.parent
 
