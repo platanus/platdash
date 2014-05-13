@@ -4,7 +4,7 @@
 
 <script type='text/javascript'>
 $(function() {
-  Dashing.widget_base_dimensions = [310, 334]
+  Dashing.widget_base_dimensions = [310, 162]
   Dashing.numColumns = 6
 });
 </script>
@@ -12,19 +12,21 @@ $(function() {
 <div class="gridster">
   <ul>
 
-    <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+    <!-- PLATANUS -->
+
+    <li data-row="4" data-col="2" data-sizex="1" data-sizey="2">
       <div data-id="pricing"
            data-view="Pricing"></div>
       <i class="fa fa-laptop icon-background"></i>
     </li>
 
-    <li data-row="2" data-col="3" data-sizex="1" data-sizey="1">
+    <li data-row="4" data-col="3" data-sizex="1" data-sizey="2">
       <div data-id="iconstruye"
            data-view="Iconstruye"></div>
       <i class="fa fa-laptop icon-background"></i>
     </li>
 
-    <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+    <li data-row="1" data-col="2" data-sizex="1" data-sizey="2">
       <div data-id="attendees"
            data-view="Attendees"
            data-today-message="Almuerzo de hoy"
@@ -34,32 +36,7 @@ $(function() {
       <i class="fa fa-cutlery icon-background"></i>
     </li>
 
-    <li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
-      <div data-id="qh_orders"
-           data-view="Meter"
-           data-title="Pedidos"
-           data-min="0"
-           data-max="200"
-           data-moreinfo="Pedidos del día."></div>
-    </li>
-
-    <li data-row="1" data-col="5" data-sizex="1" data-sizey="1">
-      <div data-id="qh_visits"
-           data-view="Number"
-           data-title="Búsquedas"
-           style="background-color:#ba0000;"
-           data-moreinfo="Búsquedas del día."></div>
-      <i class="fa fa-search icon-background"></i>
-    </li>
-
-    <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
-      <div data-id="server_status"
-           data-view="server_status"
-           data-title="200 OK"></div>
-      <i class="fa fa-laptop icon-background"></i>
-    </li>
-
-    <li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
+    <li data-row="1" data-col="3" data-sizex="1" data-sizey="2">
       <div data-id="bitcoin"
            data-view="Bitcoin"
            data-title="Bitcoin"
@@ -68,7 +45,7 @@ $(function() {
       <i class="fa fa-bitcoin icon-background"></i>
     </li>
 
-    <li data-row="3" data-col="1" data-sizex="3" data-sizey="1">
+    <li data-row="5" data-col="2" data-sizex="2" data-sizey="2">
       <div data-id="aws-cpu"
            data-view="Rickshawgraph"
            data-title="CPU Usage"
@@ -82,7 +59,7 @@ $(function() {
            data-color-scheme="rainbow"></div>
     </li>
 
-    <li data-row="2" data-col="4" data-sizex="1" data-sizey="2">
+    <li data-row="1" data-col="4" data-sizex="1" data-sizey="3">
       <div data-id="leaderboard_actors"
            data-view="Leaderboard"
            data-unordered="true"
@@ -92,7 +69,7 @@ $(function() {
       <i class="fa fa-github icon-background"></i>
     </li>
 
-    <li data-row="2" data-col="5" data-sizex="1" data-sizey="2">
+    <li data-row="4" data-col="4" data-sizex="1" data-sizey="3">
       <div data-id="leaderboard_repos"
            data-view="Leaderboard"
            data-unordered="true"
@@ -102,7 +79,7 @@ $(function() {
       <i class="fa fa-github icon-background"></i>
     </li>
 
-    <li data-row="2" data-col="5" data-sizex="1" data-sizey="1">
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="3">
       <div data-id="occupation"
            data-view="Occupation"
            data-title="Ocupación"
@@ -110,7 +87,34 @@ $(function() {
       <i class="fa fa-calendar icon-background"></i>
     </li>
 
-    <li data-row="2" data-col="6" data-sizex="1" data-sizey="1">
+    <li data-row="5" data-col="1" data-sizex="1" data-sizey="2">
+      <div data-id="server_status"
+           data-view="server_status"
+           data-title="200 OK"></div>
+      <i class="fa fa-laptop icon-background"></i>
+    </li>
+
+    <!-- QUEHAMBRE -->
+
+    <li data-row="1" data-col="6" data-sizex="1" data-sizey="2">
+      <div data-id="qh_orders"
+           data-view="Meter"
+           data-title="Pedidos"
+           data-min="0"
+           data-max="200"
+           data-moreinfo="Pedidos del día."></div>
+    </li>
+
+    <li data-row="1" data-col="5" data-sizex="1" data-sizey="2">
+      <div data-id="qh_visits"
+           data-view="Number"
+           data-title="Búsquedas"
+           style="background-color:#ba0000;"
+           data-moreinfo="Búsquedas del día."></div>
+      <i class="fa fa-search icon-background"></i>
+    </li>
+
+    <li data-row="3" data-col="6" data-sizex="1" data-sizey="2">
       <div data-id="waiting_restos"
            data-view="WaitingRestos"
            data-title="Menú en espera..."
