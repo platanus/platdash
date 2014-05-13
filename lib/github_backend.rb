@@ -191,6 +191,7 @@ class GithubBackend
 
 							events << GithubDashing::Event.new({
 								type: "upstream_pulls_#{state_desc}",
+								repo: gh_repo.parent.full_name,
 								datetime: pull.created_at.to_datetime,
 								key: pull.user.login,
 							})
