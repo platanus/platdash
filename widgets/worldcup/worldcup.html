@@ -1,0 +1,28 @@
+<h1 class="title">
+    <span data-bind="title"></span>
+</h1>
+
+<h4>
+    Next Match<span data-renderif="next_matches.length">es</span>
+</h4>
+<ul class="clearfix">
+  <li class="match" data-foreach-match="next_matches">
+    <span data-bind="match.summary"></span>
+  </li>
+  <span data-bind="next_matches[0].start.dateTime"></span>
+</ul>
+
+<div data-renderif="my_team_matches.length">
+    <h4 data-bind="myTeamTitle"></h4>
+    <ul class="clearfix">
+      <li class="match" data-foreach-match="my_team_matches">
+        <span data-bind="match.summary"></span>
+        <span data-bind="match.start.dateTime"></span>
+      </li>
+    </ul>
+</div>
+
+<p class="more-info">
+    <!-- <span data-bind="detailMessage"></span> -->
+</p>
+<p class="updated-at" data-bind="updatedAtMessage"></p>
