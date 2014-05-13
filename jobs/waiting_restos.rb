@@ -54,6 +54,6 @@ SCHEDULER.every '1m', :first_in => 0 do |job|
     end
   end
 
-  puts restaurants.inspect
+  # puts restaurants.inspect
   send_event('waiting_restos', {items: restaurants})
 end
