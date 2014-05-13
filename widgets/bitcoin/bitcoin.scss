@@ -1,19 +1,30 @@
 // ----------------------------------------------------------------------------
 // Sass declarations
 // ----------------------------------------------------------------------------
-$background-color:  #C2C27C;
+$background-color:  #464646;
 
 // ----------------------------------------------------------------------------
 // Widget-bitcoin styles
 // ----------------------------------------------------------------------------
-.widget-bitcoin {
-   background-color: $background-color;
+.widget.widget-header {
+    background-color: $background-color;
+    height: 28px;
+    width: auto;
+    padding: 2px 5px;
+    margin: 2px 5px;
+    display: inline;
+    position: absolute;
+    right: 0;
+
+    .diff{
+        font-size: 10px;
+    }
 }
 
 .red {
   color: rgba(223, 101, 54, 0.53);
 }
- 
+
 .green {
   color: rgba(77, 158, 51, 0.53);
 }
