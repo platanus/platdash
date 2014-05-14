@@ -9,127 +9,115 @@ $(function() {
 });
 </script>
 
-<div class="gridster">
-  <ul>
+<div id="container">
+  <div class="header">
+    <div class="platanus gs_w" data-row="1" data-col="1" data-sizex="4">
+      <img src="/assets/logo_main.svg" height="36px"/>
+      <span class="logo">platanus</span>
+      <span class="widget-header"
+       data-id="bitcoin"
+       data-view="Bitcoin"
+       data-title="Bitcoin"
+       data-moreinfo="Precio en dólares."
+       data-updatedAtMessage="Actualizado"></span>
+    </div>
+    <div class="platanus gs_w" data-row="1" data-col="5" data-sizex="2">
+      <img src="/assets/logo_main.svg" height="36px"/>
+      <span class="logo">open banana</span>
+    </div>
+  </div>
 
-    <!-- PLATANUS -->
+  <div class="gridster">
+    <ul>
 
-    <li data-row="4" data-col="2" data-sizex="1" data-sizey="2">
-      <div data-id="pricing"
-           data-view="Pricing"></div>
-      <i class="fa fa-laptop icon-background"></i>
-    </li>
+      <li data-row="1" data-col="1" data-sizex="1" data-sizey="2">
+        <div data-id="attendees"
+             data-view="Attendees"
+             data-today-message="Almuerzo de hoy"
+             data-tomorrow-message="Almuerzo de mañana"
+             data-no-event-message="No hay almuerzo"
+             data-updatedAtMessage="Actualizado"></div>
+        <i class="fa fa-cutlery icon-background"></i>
+      </li>
 
-    <li data-row="4" data-col="3" data-sizex="1" data-sizey="2">
-      <div data-id="iconstruye"
-           data-view="Iconstruye"></div>
-      <i class="fa fa-laptop icon-background"></i>
-    </li>
+      <li data-row="1" data-col="1" data-sizex="1" data-sizey="3">
+        <div data-id="occupation"
+             data-view="Occupation"
+             data-title="Ocupación"
+             style="background-color:#226699;"></div>
+        <i class="fa fa-calendar icon-background"></i>
+      </li>
 
-    <li data-row="1" data-col="2" data-sizex="1" data-sizey="2">
-      <div data-id="attendees"
-           data-view="Attendees"
-           data-today-message="Almuerzo de hoy"
-           data-tomorrow-message="Almuerzo de mañana"
-           data-no-event-message="No hay almuerzo"
-           data-updatedAtMessage="Actualizado"></div>
-      <i class="fa fa-cutlery icon-background"></i>
-    </li>
+      <li data-row="4" data-col="2" data-sizex="1" data-sizey="2">
+        <div data-id="pricing"
+             data-view="Pricing"></div>
+        <i class="fa fa-laptop icon-background"></i>
+      </li>
 
-    <li data-row="1" data-col="3" data-sizex="1" data-sizey="2">
+      <li data-row="4" data-col="3" data-sizex="1" data-sizey="2">
+        <div data-id="iconstruye"
+             data-view="Iconstruye"></div>
+        <i class="fa fa-laptop icon-background"></i>
+      </li>
 
-    </li>
+      <li data-row="6" data-col="1" data-sizex="2" data-sizey="1">
+        <div data-id="ec2-aws-cpu"
+             data-view="Rickshawgraph"
+             data-title="EC2 CPU Usage"
+             data-moreinfo=""
+             style="background-color:#333A52;"
+             data-renderer="line"
+             data-min="0"
+             data-max="100"
+             data-summary-method="none"
+             data-legend="true"
+             data-color-scheme="rainbow"></div>
+      </li>
 
-    <li data-row="5" data-col="2" data-sizex="2" data-sizey="1">
-      <div data-id="ec2-aws-cpu"
-           data-view="Rickshawgraph"
-           data-title="EC2 CPU Usage"
-           data-moreinfo=""
-           style="background-color:#333A52;"
-           data-renderer="line"
-           data-min="0"
-           data-max="100"
-           data-summary-method="none"
-           data-legend="true"
-           data-color-scheme="rainbow"></div>
-    </li>
+      <li data-row="6" data-col="3" data-sizex="2" data-sizey="1">
+        <div data-id="rds-aws-cpu"
+             data-view="Rickshawgraph"
+             data-title="RDS CPU Usage"
+             data-moreinfo=""
+             style="background-color:#333A52;"
+             data-renderer="line"
+             data-min="0"
+             data-max="100"
+             data-summary-method="none"
+             data-legend="true"
+             data-color-scheme="rainbow"></div>
+      </li>
 
-    <li data-row="6" data-col="2" data-sizex="2" data-sizey="1">
-      <div data-id="rds-aws-cpu"
-           data-view="Rickshawgraph"
-           data-title="RDS CPU Usage"
-           data-moreinfo=""
-           style="background-color:#523333;"
-           data-renderer="line"
-           data-min="0"
-           data-max="100"
-           data-summary-method="none"
-           data-legend="true"
-           data-color-scheme="rainbow"></div>
-    </li>
+      <li data-row="3" data-col="1" data-sizex="1" data-sizey="3">
+        <div data-id="server_status"
+             data-view="server_status"
+             data-title="200 OK"></div>
+        <i class="fa fa-laptop icon-background"></i>
+      </li>
 
-    <li data-row="1" data-col="4" data-sizex="1" data-sizey="3">
-      <div data-id="leaderboard_actors"
-           data-view="Leaderboard"
-           data-unordered="true"
-           data-title="Open Banana"
-           data-subtitle="Contributors"
-           style="background-color:#525252;"></div>
-      <i class="fa fa-github icon-background"></i>
-    </li>
+      <!-- OPEN BANANA -->
 
-    <li data-row="4" data-col="4" data-sizex="1" data-sizey="3">
-      <div data-id="leaderboard_repos"
-           data-view="Leaderboard"
-           data-unordered="true"
-           data-title="Open Banana"
-           data-subtitle="Repositories"
-           style="background-color:#525252;"></div>
-      <i class="fa fa-github icon-background"></i>
-    </li>
+      <li data-row="1" data-col="5" data-sizex="1" data-sizey="3">
+        <div data-id="leaderboard_actors"
+             data-view="Leaderboard"
+             data-unordered="true"
+             data-title="Contributors"
+             style="background-color:#525252;"></div>
+        <i class="fa fa-github icon-background"></i>
+      </li>
 
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="3">
-      <div data-id="occupation"
-           data-view="Occupation"
-           data-title="Ocupación"
-           style="background-color:#226699;"></div>
-      <i class="fa fa-calendar icon-background"></i>
-    </li>
+      <li data-row="1" data-col="6" data-sizex="1" data-sizey="3">
+        <div data-id="leaderboard_repos"
+             data-view="Leaderboard"
+             data-unordered="true"
+             data-title="Repositories"
+             style="background-color:#525252;"></div>
+        <i class="fa fa-github icon-background"></i>
+      </li>
 
-    <li data-row="4" data-col="1" data-sizex="1" data-sizey="3">
-      <div data-id="server_status"
-           data-view="server_status"
-           data-title="200 OK"></div>
-      <i class="fa fa-laptop icon-background"></i>
-    </li>
 
-    <!-- QUEHAMBRE -->
 
-    <li data-row="1" data-col="6" data-sizex="1" data-sizey="2">
-      <div data-id="qh_orders"
-           data-view="Meter"
-           data-title="Pedidos"
-           data-min="0"
-           data-max="200"
-           data-moreinfo="Pedidos del día."></div>
-    </li>
-
-    <li data-row="1" data-col="5" data-sizex="1" data-sizey="2">
-      <div data-id="qh_visits"
-           data-view="Number"
-           data-title="Búsquedas"
-           style="background-color:#ba0000;"
-           data-moreinfo="Búsquedas del día."></div>
-      <i class="fa fa-search icon-background"></i>
-    </li>
-
-    <li data-row="3" data-col="6" data-sizex="1" data-sizey="2">
-      <div data-id="waiting_restos"
-           data-view="WaitingRestos"
-           data-title="Menú en espera"
-           style="background-color:#F86E39;"></div>
-      <i class="fa fa-clock-o icon-background"></i>
-    </li>
-
-  </ul>
+    </ul>
+  </div>
 </div>
+
