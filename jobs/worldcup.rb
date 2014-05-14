@@ -32,6 +32,41 @@ client.authorization = Signet::OAuth2::Client.new(
   :issuer => service_account_email,
   :signing_key => key)
 
+flags = {
+  "Brazil" => 'bra',
+  "Croatia" => 'cro',
+  "Mexico" => 'mex',
+  "Cameroon" => 'cmr',
+  "Spain" => 'esp',
+  "Netherlands" => 'ned',
+  "Chile" => 'chi',
+  "Australia" => 'aus',
+  "Colombia" => 'col',
+  "Greece" => 'gre',
+  "Ivory Coast" => 'civ',
+  "Japan" => 'jpn',
+  "Uruguay" => 'uru',
+  "Costa Rica" => 'crc',
+  "England" => 'eng',
+  "Italy" => 'ita',
+  "Switzerland" => 'sui',
+  "Ecuador" => 'ecu',
+  "France" => 'fra',
+  "Honduras" => 'hon',
+  "Argentina" => 'arg',
+  "Bosnia and Herzegovina" => 'bih',
+  "Iran" => 'irn',
+  "Nigeria" => 'nig',
+  "Germany" => 'ger',
+  "Portugal" => 'por',
+  "Ghana" => 'gha',
+  "USA" => 'usa',
+  "Belgium" => 'bel',
+  "Algeria" => 'alg',
+  "Russia" => 'rus',
+  "South Korea" => 'kor'
+}
+
 # Start the scheduler
 SCHEDULER.every '60s', :first_in => 4 do |job|
 
@@ -42,7 +77,7 @@ SCHEDULER.every '60s', :first_in => 4 do |job|
   calendar = client.discovered_api('calendar','v3')
 
   # Start and end dates
-  startDate = DateTime.now + 43.days
+  startDate = DateTime.now #+ 42.days
   # startDate = Date.parse("2014-06-13T20:00:00Z").rfc3339
   endDate = Date.parse("2014-07-15").rfc3339
 
@@ -60,6 +95,20 @@ SCHEDULER.every '60s', :first_in => 4 do |job|
   # The worldcup matches
   matches = events.data.items;
 
+  matches = matches.each do |match|
+
+    match[:teams] = match.summary.match(/(.*) v (.*)/i)[1,2].map do |team|
+      next if not flags[team]
+      {
+        flag_small: "http://img.fifa.com/images/flags/2/#{flags[team]}.png",
+        flag_mid: "http://img.fifa.com/images/flags/3/#{flags[team]}.png",
+        flag_large: "http://img.fifa.com/images/flags/4/#{flags[team]}.png",
+        name: team,
+        code: flags[team].upcase
+      }
+    end
+  end
+
     # binding.pry
   # Set the event if there is one found
   if events.data.items.count > 0
@@ -71,9 +120,6 @@ SCHEDULER.every '60s', :first_in => 4 do |job|
     # My team matches
     myTeamMatches = matches.select {|match| match.summary.match(/#{myTeam}/i)}
 
-    # http://img.fifa.com/images/flags/3/chi.png
-
-    #
   end
 
   # Update the dashboard

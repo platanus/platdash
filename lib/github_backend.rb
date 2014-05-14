@@ -27,6 +27,7 @@ class GithubBackend
 	def contributor_stats_by_author(opts)
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		events = GithubDashing::EventCollection.new
+		puts opts.repos
 		self.get_repos(opts).each do |repo|
 			# Can't limit timeframe
 			begin
@@ -70,6 +71,7 @@ class GithubBackend
 	def issue_comment_count_by_author(opts)
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		events = GithubDashing::EventCollection.new
+		puts opts.repos
 		self.get_repos(opts).each do |repo|
 			begin
 				@client.issues_comments(repo, {:since => opts.since}).each do |issue|
@@ -93,6 +95,7 @@ class GithubBackend
 	def pull_count_by_author(opts)
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		events = GithubDashing::EventCollection.new
+		puts opts.repos
 		self.get_repos(opts).each do |repo|
 			['open','closed'].each do |state|
 				begin
@@ -120,6 +123,7 @@ class GithubBackend
 	def pull_comment_count_by_author(opts)
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		events = GithubDashing::EventCollection.new
+		puts opts.repos
 		self.get_repos(opts).each do |repo|
 			begin
 				@client.pulls_comments(repo, {:since => opts.since}).each do |comment|
@@ -143,6 +147,7 @@ class GithubBackend
 	def issue_count_by_author(opts)
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		events = GithubDashing::EventCollection.new
+		puts opts.repos
 		self.get_repos(opts).each do |repo|
 			['open','closed'].each do |state|
 				begin
@@ -173,6 +178,7 @@ class GithubBackend
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		opts.repos_type = 'fork'
 		events = GithubDashing::EventCollection.new
+		puts opts.repos
 		self.get_repos(opts, true).each do |repo|
 
 			begin
@@ -217,6 +223,7 @@ class GithubBackend
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		events = GithubDashing::EventCollection.new
 		offset = self.period_to_offset(opts.period)
+		puts opts.repos
 		self.get_repos(opts).each do |repo|
 			['open','closed'].each do |state|
 				begin
@@ -255,6 +262,7 @@ class GithubBackend
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		events = GithubDashing::EventCollection.new
 		offset = self.period_to_offset(opts.period)
+		puts opts.repos
 		self.get_repos(opts).each do |repo|
 			['open','closed'].each do |state|
 				begin

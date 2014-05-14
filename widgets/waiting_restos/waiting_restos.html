@@ -8,18 +8,18 @@
     </tr>
   </thead>
   <tbody>
+    <tr data-foreach-item="items" >
+      <td class="col-icon">
+        <i data-bind-class="item.face"></i>
+      </td>
+      <td class="col-name" style="text-align:left;">
+        <span data-bind="item.name"></span>
+      </td>
+      <td class="col-score value">
+        <div class="current-score" data-bind="item.days" ></div>
+      </td>
+    </tr>
   </tbody>
-  <tr data-foreach-item="items" >
-  <td class="col-icon">
-    <i data-bind-class="item.face"></i>
-  </td>
-  <td class="col-name" style="text-align:left;">
-    <span data-bind="item.name"></span>
-  </td>
-  <td class="col-score value">
-    <div class="current-score" data-bind="item.days" ></div>
-  </td>
-  </tr>
 </table>
 
 <p class="more-info" data-bind="moreinfo"></p>
