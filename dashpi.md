@@ -4,6 +4,7 @@
 
 + Raspberry Pi
 + Dashing Service
++ Wifi stick (optional)
 
 ## Preparing the system
 
@@ -60,6 +61,31 @@ disable_overscan=1
 ```
 Also we want to disable overscan to prevent black lines on the edges of the screen. This may produce that your images gets cropped.
 The best solution is disable overscan in the tv. *Check the display menu options (it may be called "just scan", "screen fit", "HD size", "full pixel", "unscaled", "dot by dot", "native" or "1:1)*
+
+### Configure wifi (optional)
+
+You'll need a wifi stick for this. Plug the stick and run the following command to check if the stick was detected.
+
+```bash
+ifconfig
+```
+
+This will list your network interfaces, and you should search for one named `wlan0`
+
+Now you need to edit the configuration to setup dhcp and wich SSDI and password use to connect to the network
+
+Edit `/etc/network/interfaces` and add the following code at the end
+
+```
+auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+        wpa-ssid "ssid"
+        wpa-psk "password"
+
+iface default inet dhcp
+```
+
 
 ## Start the browser on boot
 
