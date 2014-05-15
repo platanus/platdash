@@ -1,7 +1,6 @@
 class Dashing.Occupation extends Dashing.Widget
 
   ready: ->
-    Dashing.debug_mode = true
 
   onData: (data) ->
     # Handle incoming data
