@@ -3,21 +3,23 @@
 </h1>
 
 <h4>
-    Next Match<span data-renderif="next_matches.length">es</span>
+    <span data-bind="next-title"></span>
 </h4>
-
+<div class="next-time">
+<span class="team-name" data-bind="next-match-time"></span>
+</div>
 <table>
   <tbody>
     <tr class="match" data-foreach-match="next_matches" >
       <td class="left-team team-col">
         <span class="team-name" data-bind="match.teams[0].code" ></span>
-        <img data-bind-src="match.teams[0].flag_mid" />
+        <img data-bind-src="match.teams[0].flag_large" />
       </td>
       <td class="vs-col">
         <span> vs </span>
       </td>
       <td class="right-team team-col">
-        <img data-bind-src="match.teams[1].flag_mid" />
+        <img data-bind-src="match.teams[1].flag_large" />
         <span class="team-name" data-bind="match.teams[1].code" ></span>
       </td>
     </tr>
@@ -26,27 +28,22 @@
 
 
 <div data-renderif="my_team_matches.length">
-  <h4 data-bind="myTeamTitle"></h4>
+  <h5 class="my-team-header" data-bind="myTeamTitle"></h5>
   <table>
     <tbody>
       <tr class="match" data-foreach-match="my_team_matches" >
-        <td class="left-team team-col">
-          <span class="team-name" data-bind="match.teams[0].code" ></span>
-          <img data-bind-src="match.teams[0].flag_mid" />
+        <td class="flag-col">
+          <img data-bind-src="match.my_team_opponent.flag_mid" />
         </td>
-        <td class="vs-col">
-          <span> vs </span>
+        <td class="name-col col-base">
+          <span class="team-name" data-bind="match.my_team_opponent.code" ></span>
         </td>
-        <td class="right-team team-col">
-          <img data-bind-src="match.teams[1].flag_mid" />
-          <span class="team-name" data-bind="match.teams[1].code" ></span>
+        <td class="col-base">
+          <span class="team-name" data-bind="match.start.formatted"></span>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<p class="more-info">
-    <!-- <span data-bind="detailMessage"></span> -->
-</p>
 <p class="updated-at" data-bind="updatedAtMessage"></p>

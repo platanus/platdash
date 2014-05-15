@@ -16,11 +16,33 @@
         width: 14%;
     }
 
+    .col-base{
+        text-align: left;
+    }
+
+    .flag-col{
+        width: 25%;
+        text-align: right;
+        padding-right: 5px;
+    }
+
+    .name-col{
+        width: 14%;
+    }
+
     .left-team{
         text-align:right;
     }
 
     .right-team{
         text-align:left;
+    }
+
+    .next-time{
+        margin-top:-10px;
+    }
+
+    .my-team-header{
+        margin-top: 10px;
     }
 }

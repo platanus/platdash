@@ -77,8 +77,7 @@ SCHEDULER.every '60s', :first_in => 4 do |job|
   calendar = client.discovered_api('calendar','v3')
 
   # Start and end dates
-  startDate = DateTime.now #+ 42.days
-  # startDate = Date.parse("2014-06-13T20:00:00Z").rfc3339
+  startDate = DateTime.now.rfc3339 #+ 32.days
   endDate = Date.parse("2014-07-15").rfc3339
 
   # Get the events
@@ -109,7 +108,6 @@ SCHEDULER.every '60s', :first_in => 4 do |job|
     end
   end
 
-    # binding.pry
   # Set the event if there is one found
   if events.data.items.count > 0
 
@@ -118,8 +116,14 @@ SCHEDULER.every '60s', :first_in => 4 do |job|
     nextMatches = matches.select {|match| match.start.dateTime == nextMatch.start.dateTime}
 
     # My team matches
-    myTeamMatches = matches.select {|match| match.summary.match(/#{myTeam}/i)}
-
+    myTeamMatches = matches.select do |match|
+      if match.summary.match(/#{myTeam}/i)
+        match[:my_team_opponent] = match[:teams].find{|team| not team[:name].match(/#{myTeam}/i) }
+        true
+      else
+        false
+      end
+    end
   end
 
   # Update the dashboard

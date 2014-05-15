@@ -1,10 +1,22 @@
 class Dashing.Worldcup extends Dashing.Widget
 
   ready: ->
-    Dashing.debugMode = true
-    # This is fired when the widget is done being rendered
+    @refresh()
 
   onData: (data) ->
-    # Handle incoming data
-    # You can access the html node of this widget with `@node`
-    # Example: $(@node).fadeOut().fadeIn() will make the node flash each time data comes in.
+    @refresh(data)
+
+  refresh: (data) ->
+    nextTitle = if @get('next_matches').length > 1 then "Next Matches" else "Next Match"
+    @set('next-title', nextTitle)
+
+    # Set a global next match formatted time
+    @set('next-match-time', @formatDate(@get('next_matches')[0].start.dateTime))
+
+    # Set the formatted time for each of my team matches
+    match.start.formatted = @formatDate(match.start.dateTime) for match in @get('my_team_matches')
+    #
+    true
+
+  formatDate: (date) ->
+    moment(new Date date).fromNow()
