@@ -43,9 +43,17 @@ SCHEDULER.every '60s', :first_in => 4 do |job|
   calendar = client.discovered_api('calendar','v3')
 
   # Start and end dates
-  show_tomorrow_event = Time.now >= Time.parse(next_event_time + (next_event_timezone || ""))
-  startDate = !show_tomorrow_event ? Date.today.rfc3339 : Date.today.next_day.rfc3339
-  endDate = !show_tomorrow_event ? Date.today.next_day.rfc3339 : Date.today.next_day(2).rfc3339
+  Time.zone = next_event_timezone
+  today = Date.today.in_time_zone
+  tomorrow = Date.today.next_day.in_time_zone
+  after_tomorrow = Date.today.next_day(2).in_time_zone
+
+  # Check if the current time has passed the defined threshold
+  show_tomorrow_event = Time.zone.now >= Time.zone.parse(next_event_time)
+
+  # Search event dates
+  startDate = !show_tomorrow_event ? today.to_datetime.rfc3339 : tomorrow.to_datetime.rfc3339
+  endDate = !show_tomorrow_event ? tomorrow.to_datetime.rfc3339 : after_tomorrow.to_datetime.rfc3339
 
   # Get the events
   events = client.execute(:api_method => calendar.events.instances,
