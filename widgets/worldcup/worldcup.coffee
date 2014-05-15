@@ -11,12 +11,21 @@ class Dashing.Worldcup extends Dashing.Widget
     @set('next-title', nextTitle)
 
     # Set a global next match formatted time
-    @set('next-match-time', @formatDate(@get('next_matches')[0].start.dateTime))
+    nextMatch = @get('next_matches')[0]
+    @set('next-match-time', @formatDate(nextMatch.start, nextMatch.end))
 
     # Set the formatted time for each of my team matches
-    match.start.formatted = @formatDate(match.start.dateTime) for match in @get('my_team_matches')
+    match.start.formatted = @formatDate(match.start, match.end) for match in @get('my_team_matches')
     #
     true
 
-  formatDate: (date) ->
-    moment(new Date date).fromNow()
+  formatDate: (startDate, endDate) ->
+    nowMoment = moment()
+    startMoment = moment(new Date startDate.dateTime)
+    endMoment = moment(new Date endDate.dateTime)
+    if nowMoment > startMoment and nowMoment < endMoment
+      "LIVE"
+    else if nowMoment > endMoment
+      "FINISHED"
+    else
+      moment(new Date startDate.dateTime).fromNow()
