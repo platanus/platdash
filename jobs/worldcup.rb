@@ -10,8 +10,6 @@ service_account_email = ENV['GOOGLE_SERVICE_ACCOUNT_EMAIL'] # Email of service a
 key_file = ENV['GOOGLE_SERVICE_PK_FILE'] # File containing your private key
 key_secret = ENV['GOOGLE_SERVICE_KEY_SECRET'] # Password to unlock private key
 calendarID = ENV['WORLDCUP_CALENDAR'] # Calendar ID.
-next_event_time = ENV['NEXT_EVENT_TIME'] || '14:00' # Time to start showing the next event
-next_event_timezone = ENV['NEXT_EVENT_TIMEZONE'] # Time zone to parse the next event time in
 myTeam = ENV['WORLDCUP_MY_TEAM']
 
 # Get the Google API client
