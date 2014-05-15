@@ -17,7 +17,7 @@
     <link rel="icon" href="/favicon.ico">
 
   </head>
-  <body>
+  <body class="<%= yield_content(:body_class) %>">
     <%= yield %>
 
     <% if development? %>
