@@ -1,7 +1,5 @@
 require 'mixpanel_client'
 require 'date'
-require './lib/mixpanel_config'
-require './lib/mixpanel_event_number'
 
 SCHEDULER.every '30s', :first_in => 4 do |job|
   send_event('qh_orders', {
