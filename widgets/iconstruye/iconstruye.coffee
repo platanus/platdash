@@ -7,11 +7,11 @@ class Dashing.Iconstruye extends Dashing.Widget
     $node = $(@node)
 
     # set the main error indicator color.
-    main_hue = if query_count > 0 then query_error_count / query_count else 0.0
+    main_hue = if data.query_count > 0 then data.query_error_count / data.query_count else 0.0
     main_hue = 0.3 - main_hue
     main_rgb = HSVtoRGB main_hue, 0.8, 0.8
 
-    data.error_color = 'color: rgb(' + main_rgb.r + ',' + main_rgb.g + ',' + main_rgb.b + ');'
+    @set 'error_color', 'color: rgb(' + main_rgb.r + ',' + main_rgb.g + ',' + main_rgb.b + ');'
 
     # set the background color for each crawler depending on the error_rate
     crawler_array = []
