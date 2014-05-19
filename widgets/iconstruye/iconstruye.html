@@ -1,10 +1,11 @@
 <h1>iConstruye</h1>
 
-<h5>Última hora</h5>
+<!-- <h5>Última hora</h5> -->
 <ul class="info">
-	<li>Consultas: <span class="data" data-bind="query_count"></span></li>
-	<li>T Promedio: <span class="data" data-bind="query_mean_wait | append ' (s)'"></span></li>
-	<li>T Máximo: <span class="data" data-bind="query_max_wait | append ' (s)'"></span></li>
+	<li>Consultas (p/H): <span class="data" data-bind="query_count"></span></li>
+	<li>T Promedio (p/H): <span class="data" data-bind="query_mean_wait | append ' (s)'"></span></li>
+	<li>T Máximo (p/H): <span class="data" data-bind="query_max_wait | append ' (s)'"></span></li>
+	<li>Errores (p/H): <span class="data" data-bind="query_error_count" data-bind-style="error_color"></span></li>
 </ul>
 
 <h5>Estado crawlers</h5>
