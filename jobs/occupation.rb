@@ -55,11 +55,11 @@ calendars = [
     id: "platan.us_js98bml0b21d2nu09h58ktp7pg@group.calendar.google.com",
     avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('leandro@platan.us')}"
   },
-  # {
-  #   name:"E. Blanco",
-  #   id: "platan.us_76q7fudikh18gu54mb2apvnsc4@group.calendar.google.com",
-  #   avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('emilio@platan.us')}"
-  # },
+  {
+    name:"E. Blanco",
+    id: "platan.us_1cnrhiqp296psbb686ug98t4n8@group.calendar.google.com",
+    avatar: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest('emilio@platan.us')}"
+  },
   {
     name:"J. Garcia",
     id: "platan.us_t34n3p3g40sqlht1l39smrmku4@group.calendar.google.com",
