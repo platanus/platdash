@@ -3,7 +3,7 @@ require 'uri'
 
 current_valuation = 0
 
-SCHEDULER.every '20s', :first_in => 4 do
+SCHEDULER.every '2m', :first_in => 1 do
   last_valuation = current_valuation
   # Go get the prices from bitstamp open api
   uri = URI.parse('https://www.bitstamp.net/api/ticker/')
