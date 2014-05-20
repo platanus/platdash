@@ -89,7 +89,7 @@ SCHEDULER.every '1m', :first_in => 0 do |job|
       {
         :timeMin => Date.today.rfc3339,
         :timeMax => (Date.today + 7).rfc3339,
-        :timeZone => "UTC-04:00",
+        :timeZone => GeneralKeyValue.instance.get(:occupation_timezone),
         :items => calendars
       }
 
@@ -102,7 +102,7 @@ calendars.each do |cal|
   occupation['busy'].each do |session|
     cal[:busy_hours] += (Time.parse(session['end']) - Time.parse(session['start'])) / 1.hour
   end
-  cal[:percent] = ((cal[:busy_hours] * 100 / (cal[:weekly] || 40)).round).to_s + "%"
+  cal[:percent] = ((cal[:busy_hours] * 100 / (cal[:weekly] || GeneralKeyValue.instance.get(:occupation_default_weekly_hours).to_i)).round).to_s + "%"
 end
 
   send_event('occupation', {items: calendars})
