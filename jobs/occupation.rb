@@ -78,7 +78,7 @@ md5 = Digest::MD5.new
 #   # }
 # ]
 
-SCHEDULER.every '10m', :first_in => 0 do |job|
+SCHEDULER.every '20s', :first_in => 0 do |job|
 
   developers = remoteObject('http://platan.us/team.json?filter=developers')
   calendars = developers.map do |dev| {id: dev['calendar']} end
@@ -108,9 +108,12 @@ developers.each do |dev|
     occupation['busy'].each do |session|
       dev[:busy_hours] += (Time.parse(session['end']) - Time.parse(session['start'])) / 1.hour
     end
-    dev[:percent] = ((dev[:busy_hours] * 100 / (dev[:weekly] || GeneralKeyValue.instance.get(:occupation_default_weekly_hours).to_i)).round).to_s + "%"
+    weekly = GeneralKeyValue.instance.get("occupation_#{dev['slug']}_weekly_hours".to_sym).to_i
+    if weekly == 0
+      weekly = GeneralKeyValue.instance.get(:occupation_default_weekly_hours).to_i || 40
+    end
+    dev[:percent] = ((dev[:busy_hours] * 100 / weekly).round).to_s  + "%"
   end
 end
-
   send_event('occupation', {items: developers})
 end
