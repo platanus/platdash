@@ -8,7 +8,33 @@ class DashingAWS
     def initialize(options)
         @access_key_id = options[:access_key_id]
         @secret_access_key = options[:secret_access_key]
-        @clientCache = {}
+        @cwClientCache = {}
+    end
+
+    def getEc2Instances()
+        # Get an API client instance
+        ec2 = @ec2
+        if not ec2
+            ec2 = @ec2 = AWS::EC2.new({
+                access_key_id: @access_key_id,
+                secret_access_key: @secret_access_key
+            })
+        end
+
+        ec2.instances.tagged("Name")
+    end
+
+    def getRdsInstances()
+        # Get an API client instance
+        rds = @rds
+        if not rds
+            rds = @rds = AWS::RDS.new({
+                access_key_id: @access_key_id,
+                secret_access_key: @secret_access_key
+            })
+        end
+
+        rds.instances
     end
 
     # Get statistics for an instance
@@ -32,9 +58,9 @@ class DashingAWS
         statKey = type
 
         # Get an API client instance
-        cw = @clientCache[region]
+        cw = @cwClientCache[region]
         if not cw
-            cw = @clientCache[region] = AWS::CloudWatch::Client.new({
+            cw = @cwClientCache[region] = AWS::CloudWatch::Client.new({
                 server: "https://monitoring.#{region}.amazonaws.com",
                 access_key_id: @access_key_id,
                 secret_access_key: @secret_access_key

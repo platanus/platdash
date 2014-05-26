@@ -26,30 +26,40 @@ dashing_aws = DashingAWS.new({
 #
 
 SCHEDULER.every '5m', :first_in => 0 do |job|
-    ec2_cpu_usage = [
-        {name: 'augustijn',     instance_id: "i-4b1fc765", region: 'us-east-1', namespace: 'AWS/EC2'},
-        {name: 'szot',          instance_id: "i-17050370", region: 'us-east-1', namespace: 'AWS/EC2'},
-        {name: 'kwan',          instance_id: "i-33fcbd62", region: 'us-east-1', namespace: 'AWS/EC2'},
-        {name: 'guinness',      instance_id: "i-4d1b212a", region: 'us-east-1', namespace: 'AWS/EC2'},
-        {name: 'quehambre',     instance_id: "i-c8e8a9ac", region: 'us-east-1', namespace: 'AWS/EC2'},
-        {name: 'corona',        instance_id: "i-47e7fd22", region: 'us-east-1', namespace: 'AWS/EC2'}
-    ]
 
-    rds_cpu_usage = [
-        {name: 'db-mysql',      instance_id: "platanusdb", region: 'us-east-1', namespace: 'AWS/RDS'},
-        {name: 'db-ghoster',    instance_id: "ghosterdb",  region: 'us-east-1', namespace: 'AWS/RDS'},
-        {name: 'db-postgres',   instance_id: "platanuspg", region: 'us-east-1', namespace: 'AWS/RDS'}
-    ]
+    # EC2 CPU Stats
+    ec2_instances = dashing_aws.getEc2Instances
+    ec2_instances = ec2_instances.map(){|instance|
+        {
+            instance_id: instance.instance_id,
+            region: 'us-east-1',
+            namespace: 'AWS/EC2',
+            name: instance.tags['Name']
+        }
+    }
 
     ec2_cpu_series = []
-    ec2_cpu_usage.each do |item|
+    ec2_instances.each do |item|
         cpu_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "CPUUtilization", 'AWS/EC2', :average)
-        cpu_data[:name] = item[:name]
-        ec2_cpu_series.push cpu_data
+        if cpu_data
+            cpu_data[:name] = item[:name]
+            ec2_cpu_series.push cpu_data
+        end
     end
 
+    # RDS CPU Stats
+    rds_instances = dashing_aws.getRdsInstances
+    rds_instances = rds_instances.map(){|instance|
+        {
+            instance_id: instance.db_instance_id,
+            region: 'us-east-1',
+            namespace: 'AWS/RDS',
+            name: instance.db_instance_id
+        }
+    }
+
     rds_cpu_series = []
-    rds_cpu_usage.each do |item|
+    rds_instances.each do |item|
         cpu_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "CPUUtilization", 'AWS/RDS', :average)
         cpu_data[:name] = item[:name]
         rds_cpu_series.push cpu_data
