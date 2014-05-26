@@ -39,7 +39,7 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
 
     ec2_cpu_series = []
     ec2_instances.each do |item|
-        cpu_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "CPUUtilization", 'AWS/EC2', :average)
+        cpu_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "CPUUtilization", 'AWS/EC2', :average, min_y: ENV['AWS_EC2_CPU_MIN'])
         if cpu_data
             cpu_data[:name] = item[:name]
             ec2_cpu_series.push cpu_data

@@ -45,7 +45,7 @@ class DashingAWS
     # * `metric_name` is the metric to get.  See
     #   [the list of build in metrics](http://docs.aws.amazon.com/AWSEC2/2011-07-15/UserGuide/index.html?using-cloudwatch.html).
     # * `type` is `:average` or `:maximum`.
-    # * `options` are [:start_time, :end_time, :period, :dimensions] as per
+    # * `options` are [:start_time, :end_time, :period, :dimensions, :min_y] as per
     #   `get_metric_statistics()`, although all are optional.  Also:
     #   * `:duration` - If supplied, and no start_time or end_time are supplied, then start_time
     #     and end_time will be computed based on this value in seconds.  Defaults to 6 hours.
@@ -107,6 +107,11 @@ class DashingAWS
                 name: "#{metric_name} for #{instance_id}",
                 data: data
             }
+
+            if options[:min_y] and not answer[:data].any?(){|d| d[:y] > options[:min_y].to_f}
+                puts "\e[33mWarning: Skip data for instanceId: #{region}:#{instance_id} for metric #{metric_name}\e[0m"
+                answer[:data] = nil
+            end
         end
 
         return answer
