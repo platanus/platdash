@@ -61,34 +61,6 @@ $(function() {
         <i class="fa fa-laptop icon-background"></i>
       </li>
 
-      <li data-row="6" data-col="1" data-sizex="2" data-sizey="1">
-        <div data-id="ec2-aws-cpu"
-             data-view="Rickshawgraph"
-             data-title="EC2 CPU Usage"
-             data-moreinfo=""
-             style="background-color:#333A52;"
-             data-renderer="line"
-             data-min="0"
-             data-max="100"
-             data-summary-method="none"
-             data-legend="true"
-             data-color-scheme="rainbow"></div>
-      </li>
-
-      <li data-row="6" data-col="3" data-sizex="2" data-sizey="1">
-        <div data-id="rds-aws-cpu"
-             data-view="Rickshawgraph"
-             data-title="RDS CPU Usage"
-             data-moreinfo=""
-             style="background-color:#333A52;"
-             data-renderer="line"
-             data-min="0"
-             data-max="100"
-             data-summary-method="none"
-             data-legend="true"
-             data-color-scheme="rainbow"></div>
-      </li>
-
       <li data-row="3" data-col="1" data-sizex="1" data-sizey="3">
         <div data-id="server_status"
              data-view="server_status"
@@ -105,8 +77,35 @@ $(function() {
         <img class="icon-background" src="/assets/brazil-back.png" />
       </li>
 
-      <!-- OPEN BANANA -->
+      <li data-row="6" data-col="1" data-sizex="2" data-sizey="1">
+        <div data-id="ec2-aws-cpu"
+             data-view="Rickshawgraph"
+             data-title="EC2 CPU Usage"
+             data-moreinfo=""
+             style="background-color:#333A52;"
+             data-renderer="line"
+             data-min="0"
+             data-max="100"
+             data-summary-method="none"
+             data-legend="true"
+             data-color-scheme="rainbow"></div>
+      </li>
 
+      <li data-row="6" data-col="3" data-sizex="2" data-sizey="1">
+        <div data-id="ec2-aws-mem"
+             data-view="Rickshawgraph"
+             data-title="EC2 Memory Usage"
+             data-moreinfo=""
+             style="background-color:#333A52;"
+             data-renderer="line"
+             data-min="0"
+             data-max="100"
+             data-summary-method="none"
+             data-legend="true"
+             data-color-scheme="rainbow"></div>
+      </li>
+
+      <!-- OPEN BANANA -->
       <li data-row="1" data-col="5" data-sizex="1" data-sizey="3">
         <div data-id="leaderboard_actors"
              data-view="Leaderboard"
@@ -125,7 +124,19 @@ $(function() {
         <i class="fa fa-github icon-background"></i>
       </li>
 
-
+      <li data-row="6" data-col="5" data-sizex="2" data-sizey="1">
+        <div data-id="rds-aws-cpu"
+             data-view="Rickshawgraph"
+             data-title="RDS CPU Usage"
+             data-moreinfo=""
+             style="background-color:#333A52;"
+             data-renderer="line"
+             data-min="0"
+             data-max="100"
+             data-summary-method="none"
+             data-legend="true"
+             data-color-scheme="rainbow"></div>
+      </li>
 
     </ul>
   </div>

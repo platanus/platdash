@@ -68,7 +68,7 @@ class DashingAWS
         end
 
         # Build a default set of options to pass to get_metric_statistics
-        instanceIdName = (namespace=='AWS/EC2') ? "InstanceId" : "DBInstanceIdentifier"
+        instanceIdName = (namespace=='AWS/RDS') ? "DBInstanceIdentifier" : "InstanceId"
         duration = (options[:duration] or (60*60*6)) # Six hours
         start_time = (options[:start_time] or (Time.now - duration))
         end_time = (options[:end_time] or (Time.now))

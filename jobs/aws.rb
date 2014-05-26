@@ -33,7 +33,6 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
         {
             instance_id: instance.instance_id,
             region: 'us-east-1',
-            namespace: 'AWS/EC2',
             name: instance.tags['Name']
         }
     }
@@ -47,13 +46,22 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
         end
     end
 
+    ec2_mem_series = []
+    ec2_instances.each do |item|
+        mem_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "MemoryUtilization", 'System/Linux', :average)
+        if mem_data
+            mem_data[:name] = item[:name]
+            ec2_mem_series.push mem_data
+        end
+    end
+
+
     # RDS CPU Stats
     rds_instances = dashing_aws.getRdsInstances
     rds_instances = rds_instances.map(){|instance|
         {
             instance_id: instance.db_instance_id,
             region: 'us-east-1',
-            namespace: 'AWS/RDS',
             name: instance.db_instance_id
         }
     }
@@ -67,6 +75,7 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
 
     # If you're using the Rickshaw Graph widget: https://gist.github.com/jwalton/6614023
     send_event "ec2-aws-cpu", { series: ec2_cpu_series }
+    send_event "ec2-aws-mem", { series: ec2_mem_series }
     send_event "rds-aws-cpu", { series: rds_cpu_series }
 
     # If you're just using the regular Dashing graph widget:
