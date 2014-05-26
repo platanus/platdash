@@ -12,12 +12,12 @@ SCHEDULER.every '1m', :first_in => 1 do |job|
         {
           name: w[row,1],
           date: w[row,2],
+          pending: w[row,3],
           days: (Date.today - Date.parse(w[row,2])).round
         })
-      restaurants.last[:face] = (restaurants.last[:days].to_i > 5) ? 'fa fa-frown-o' : 'fa fa-cutlery'
+      restaurants.last[:face] = (restaurants.last[:days].to_i > 10) ? 'fa fa-frown-o' : 'fa fa-cutlery'
     end
   end
-
-  # puts restaurants.inspect
-  send_event('waiting_restos', {items: restaurants})
+  # puts restaurants.inspect!
+  send_event('waiting_restos', {pending: restaurants.select{|r| r[:pending] == 'si'}, not_pending: restaurants.select{|r| r[:pending] == 'no'}})
 end
