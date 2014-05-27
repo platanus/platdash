@@ -1,23 +1,9 @@
-.logo{
-  font-family: "Ubuntu",sans-serif;
-  font-size: 1.4em;
-  font-weight: 400;
-  line-height: 1.2em;
-  letter-spacing: 0.05em;
-  vertical-align: middle;
-}
-
 #container{
   padding-top: 0;
 }
 
 .header{
   height: 40px;
-
-  .platanus{
-    height: 40px;
-    display: block;
-  }
 
   .gs_w {
       z-index: 2;
@@ -27,9 +13,44 @@
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
       padding: 2px;
+      height: 40px;
+  }
+
+  .header-logo{
+    position: absolute;
+    line-height: 0.2em;
+  }
+
+  .header-text{
+    font-family: "Ubuntu",sans-serif;
+    font-size: 1.4em;
+    font-weight: 400;
+    line-height: 1.2em;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+  }
+
+
+  .widget {
+    background-color: #464646;
+    height: 28px;
+    width: auto;
+    padding: 2px 5px;
+    margin: 2px 5px;
+    display: block;
+    float:right;
+    position:relative;
+    z-index: 10;
+
+
+    .diff{
+        font-size: 10px;
+    }
   }
 }
 
 body.quehambre{
   font-size:30px
 }
+
+
