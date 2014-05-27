@@ -9,6 +9,16 @@ dashing_aws = DashingAWS.new({
     :secret_access_key => ENV['AWS_SECRECT_ACCESS_KEY'],
 })
 
+reserved_normalization_factor = {
+    "small" => 1,
+    "medium" => 2,
+    "large" => 4,
+    "xlarge" => 8,
+    "2xlarge" => 16,
+    "4xlarge" => 32,
+    "8xlarge" => 64
+}
+
 # See documentation here for cloud watch API here: https://github.com/aws/aws-sdk-ruby/blob/af638994bb7d01a8fd0f8a6d6357567968638100/lib/aws/cloud_watch/client.rb
 # See documentation on various metrics and dimensions here: http://docs.aws.amazon.com/AWSEC2/2011-07-15/UserGuide/index.html?using-cloudwatch.html
 
@@ -30,10 +40,16 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
     # EC2 CPU Stats
     ec2_instances = dashing_aws.getEc2Instances
     ec2_instances = ec2_instances.map(){|instance|
+        type_split = instance.instance_type.match(/(.*)\.(.*)/)
+
         {
             instance_id: instance.instance_id,
             region: 'us-east-1',
-            name: instance.tags['Name']
+            name: instance.tags['Name'],
+            instance_type: instance.instance_type,
+            family: type_split[1],
+            normalization_factor: reserved_normalization_factor[type_split[2]],
+            status: instance.status
         }
     }
 
@@ -73,10 +89,45 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
         rds_cpu_series.push cpu_data
     end
 
-    # If you're using the Rickshaw Graph widget: https://gist.github.com/jwalton/6614023
+    # RESERVED
+    ec2_reserved_instances = dashing_aws.getEc2ReservedInstances
+    ec2_reserved_instances = ec2_reserved_instances.map() do |instance|
+        type_split = instance.instance_type.match(/(.*)\.(.*)/)
+
+        {
+            availability_zone: instance.availability_zone,
+            instance_type: instance.instance_type,
+            instance_count: instance.instance_count,
+            start: instance.start,
+            finish: instance.start + instance.duration.seconds,
+            duration: instance.duration,
+            state: instance.state,
+            family: type_split[1],
+            normalization_factor: reserved_normalization_factor[type_split[2]]
+        }
+    end
+
+    instances_nf_stats = ec2_instances.reduce(Hash.new 0) do |r, item|
+        if item[:status] == :running and item[:normalization_factor]
+            r[item[:family]] -= item[:normalization_factor]
+        end
+        r
+    end
+
+    reserved_nf_stats = ec2_reserved_instances.reduce(Hash.new 0) do |r, item|
+        if item[:state] == "active" and item[:normalization_factor]
+            r[item[:family]] += item[:normalization_factor] * item[:instance_count]
+        end
+        r
+    end
+
+    per_family_nf = instances_nf_stats.merge(reserved_nf_stats) {|key,val1,val2| val1+val2}
+
+    # # If you're using the Rickshaw Graph widget: https://gist.github.com/jwalton/6614023
     send_event "ec2-aws-cpu", { series: ec2_cpu_series }
     send_event "ec2-aws-mem", { series: ec2_mem_series }
     send_event "rds-aws-cpu", { series: rds_cpu_series }
+    send_event "ec2-aws-reserved", { stats: per_family_nf.to_a }
 
     # If you're just using the regular Dashing graph widget:
     # send_event "aws-cpu-server1", { points: cpu_series[0][:data] }

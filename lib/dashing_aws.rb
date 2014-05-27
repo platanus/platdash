@@ -37,6 +37,19 @@ class DashingAWS
         rds.instances
     end
 
+    def getEc2ReservedInstances()
+        # Get an API client instance
+        ec2 = @ec2
+        if not ec2
+            ec2 = @ec2 = AWS::EC2.new({
+                access_key_id: @access_key_id,
+                secret_access_key: @secret_access_key
+            })
+        end
+
+        ec2.reserved_instances
+    end
+
     # Get statistics for an instance
     #
     # * `instance_id` is the instance to get data about.
