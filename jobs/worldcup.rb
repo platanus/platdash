@@ -75,7 +75,7 @@ SCHEDULER.every '60s', :first_in => 4 do |job|
   calendar = client.discovered_api('calendar','v3')
 
   # Start and end dates
-  startDate = (DateTime.now - 2.hours).rfc3339 #+ 32.days
+  startDate = (DateTime.now - 20.minutes).rfc3339 #+ 32.days
   endDate = Date.parse("2014-07-15").rfc3339
 
   # Get the events
