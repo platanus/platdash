@@ -3,7 +3,6 @@
   <thead>
     <tr>
       <th style="text-align:left;">Restaurante</th>
-      <th style="text-align:left;">Email</th>
       <th style="text-align:left;">Deuda</th>
     </tr>
   </thead>
@@ -11,9 +10,6 @@
     <tr data-foreach-item="debtors | sort">
       <td class="col-name" style="text-align:left;">
         <span data-bind="item.name"></span>
-      </td>
-      <td class="col-name" style="text-align:left;">
-        <span data-bind="item.contact_email"></span>
       </td>
       <td class="col-score" style="text-align:left;">
         <span data-bind="item.pending | numberWithDots | prepend '$'"></span>
