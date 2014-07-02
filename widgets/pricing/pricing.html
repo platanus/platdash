@@ -6,7 +6,7 @@
 <ul class="status">
   	<li data-foreach-item="crawlers" data-bind-id="item.name" data-bind-style="item.color">
   	  	<div data-bind="item.name" class="label"></div>
-	  	<div data-bind="item.error_rate | append ' Err/h'" class="value"></div>
+	  	<div data-bind="item[attr] | append suffix" class="value"></div>
 	</li>
 </ul>
 
