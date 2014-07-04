@@ -14,7 +14,7 @@ ENV['SINCE'] ||= '12.months.ago.beginning_of_month'
 ENV['SINCE'] = ENV['SINCE'].to_datetime.to_s rescue eval(ENV['SINCE']).to_s
 
 configure do
-  set :auth_token, 'YOUR_AUTH_TOKEN'
+  set :auth_token, 'n3q48nerbkjvVFSAo9yh34libco9y23qjbGGhflkjdhs98y2398kj'
 
   helpers do
     def protected!
