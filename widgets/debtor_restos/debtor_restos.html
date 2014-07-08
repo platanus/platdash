@@ -7,12 +7,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr data-foreach-item="debtors | sort">
+    <tr data-foreach-item="debtors">
       <td class="col-name" style="text-align:left;">
         <span data-bind="item.name"></span>
       </td>
       <td class="col-score" style="text-align:left;">
-        <span data-bind="item.pending | numberWithDots | prepend '$'"></span>
+        <span data-bind="item.expired | numberWithDots | prepend '$'"></span>
       </td>
     </tr>
   </tbody>
