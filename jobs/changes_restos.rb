@@ -12,11 +12,10 @@ SCHEDULER.every '5m', :first_in => 1 do |job|
       changes.push(
         {
           restaurant: w[row,1],
-          responsible: w[row,2],
-          topic: w[row,3]
+          responsible: w[row,2]
         })
     end
   end
   # puts restaurants.inspect!
-  send_event('changes_restos', {changes: changes[0..2]})
+  send_event('changes_restos', {changes: changes[0..5]})
 end
