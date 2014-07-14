@@ -13,7 +13,7 @@ body{
       z-index: 2;
       position: absolute;
       background: rgb(49, 49, 49);
-      text-align: center;
+      text-align: left;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
       padding: 2px;
@@ -23,6 +23,7 @@ body{
 
   .header-logo{
     position: absolute;
+    margin-left: 10px;
     line-height: 0.2em;
   }
 
