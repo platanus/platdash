@@ -21,10 +21,8 @@ SCHEDULER.every '2m', :first_in => 1 do
   # Prepare the event information
   current_valuation = obj['last'].to_i
   change = current_valuation - last_valuation
-  arrow = (change > 0)? 'fa fa-arrow-up green' : 'fa fa-arrow-down red'
 
   # Send the event
-  send_event('bitcoin', { current: current_valuation, difference: change.abs, arrow: arrow, prefix:'$'})
-
+  send_event('bitcoin', { current: current_valuation, difference: change.abs, last: last_valuation })
 
 end
