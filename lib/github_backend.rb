@@ -35,6 +35,7 @@ class GithubBackend
 				if stats.respond_to? "each"
 					stats.each do |stat|
 						stat.weeks.each do |week|
+							next if not stat.author
 							events << GithubDashing::Event.new({
 								type: "commits_additions",
 								repo: repo,
