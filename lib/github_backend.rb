@@ -179,7 +179,6 @@ class GithubBackend
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		opts.repos_type = 'fork'
 		events = GithubDashing::EventCollection.new
-		puts opts.repos
 		self.get_repos(opts, true).each do |repo|
 
 			begin
