@@ -20,7 +20,21 @@ $background-color:  #4876BD;
 		margin: 10px;
 	}
 
-	.status > li {
+	.status > li.title {
+		padding-left: 42%;
+		background: none;
+		border: none;
+		height: 24px;
+		> div {
+			float: left;
+			text-align: left;
+			position: relative;
+			display: inline-block;
+			font-size: 16px;
+			font-weight: bold;
+		}
+	}
+	.status > li.data {
 		box-sizing: border-box;
 		background: gray;
 		color: #EEE;
@@ -31,19 +45,12 @@ $background-color:  #4876BD;
 		height: 40px;
 		margin-bottom: 4px;
 		border: 5px outset rgba(255,255,255,0.3);
+		padding-left: 2%;
+		> div {
+			float: left;
+			text-align: left;
+			display: inline-block;
+			position:relative
+		}
 	}
-
-	.label {
-		position: absolute;
-		top: 1px;
-		left: 10px;
-	}
-
-	.value {
-		position: absolute;
-		top: 1px;
-		font-size: 20px;
-		right: 10px;
-	}
-
 }
