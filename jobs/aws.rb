@@ -71,6 +71,24 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
         end
     end
 
+    ec2_hdd_series = []
+    ec2_instances.each do |item|
+        # TODO The the metrics dimensions from list_metrics mathod
+        options = {
+            dimensions: [
+                {name: "InstanceId", value: item[:instance_id]},
+                {name: "MountPath", value: "/"},
+                {name: "Filesystem", value: "/dev/xvda1"}
+            ]
+        }
+
+        hdd_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "DiskSpaceUtilization", 'System/Linux', :average, options)
+        if hdd_data
+            hdd_data[:name] = item[:name]
+            ec2_hdd_series.push hdd_data
+        end
+    end
+
 
     # RDS CPU Stats
     rds_instances = dashing_aws.getRdsInstances
@@ -123,9 +141,10 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
 
     per_family_nf = instances_nf_stats.merge(reserved_nf_stats) {|key,val1,val2| val1+val2}
 
-    # # If you're using the Rickshaw Graph widget: https://gist.github.com/jwalton/6614023
+    # If you're using the Rickshaw Graph widget: https://gist.github.com/jwalton/6614023
     send_event "ec2-aws-cpu", { series: ec2_cpu_series }
     send_event "ec2-aws-mem", { series: ec2_mem_series }
+    send_event "ec2-aws-hdd", { series: ec2_hdd_series }
     send_event "rds-aws-cpu", { series: rds_cpu_series }
     send_event "ec2-aws-reserved", { stats: per_family_nf.to_a }
 
