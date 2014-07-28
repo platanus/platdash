@@ -141,12 +141,20 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
 
     per_family_nf = instances_nf_stats.merge(reserved_nf_stats) {|key,val1,val2| val1+val2}
 
+    # ESTIMATED CHARGES
+    charges_options = {
+       dimensions: [{ name:"Currency", value: "USD" }]
+    }
+    charges = dashing_aws.getInstanceStats(nil, 'us-east-1', "EstimatedCharges", 'AWS/Billing', :average, charges_options)
+    charges = charges[:data].first[:y]
+
     # If you're using the Rickshaw Graph widget: https://gist.github.com/jwalton/6614023
     send_event "ec2-aws-cpu", { series: ec2_cpu_series }
     send_event "ec2-aws-mem", { series: ec2_mem_series }
     send_event "ec2-aws-hdd", { series: ec2_hdd_series }
     send_event "rds-aws-cpu", { series: rds_cpu_series }
     send_event "ec2-aws-reserved", { stats: per_family_nf.to_a }
+    send_event "billing-aws-estimatedcharges", { current: charges }
 
     # If you're just using the regular Dashing graph widget:
     # send_event "aws-cpu-server1", { points: cpu_series[0][:data] }
