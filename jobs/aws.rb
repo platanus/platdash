@@ -64,7 +64,7 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
 
     ec2_mem_series = []
     ec2_instances.each do |item|
-        mem_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "MemoryUtilization", 'System/Linux', :average)
+        mem_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "MemoryUtilization", 'System/Linux', :average, min_y: ENV['AWS_EC2_MEM_MIN'])
         if mem_data
             mem_data[:name] = item[:name]
             ec2_mem_series.push mem_data
@@ -79,7 +79,8 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
                 {name: "InstanceId", value: item[:instance_id]},
                 {name: "MountPath", value: "/"},
                 {name: "Filesystem", value: "/dev/xvda1"}
-            ]
+            ],
+            min_y: ENV['AWS_EC2_HDD_MIN']
         }
 
         hdd_data = dashing_aws.getInstanceStats(item[:instance_id], item[:region], "DiskSpaceUtilization", 'System/Linux', :average, options)
