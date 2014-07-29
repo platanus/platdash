@@ -1,13 +1,14 @@
 <h1>Pricing</h1>
 <ul class="status">
 	<li class="title">
-		<div style="width:48%;">Tiempo</div>
-		<div style="width:52%;">Errores</div>
+    <div>&nbsp;</div>
+		<div><i class="fa fa-refresh"></i> hrs</div>
+		<div><i class="fa fa-warning"></i> err/h</div>
 	</li>
-  	<li class="data" data-foreach-item="crawlers" data-bind-id="item.name" data-bind-style="item.color">
-  	  	<div data-bind="item.name"  style="width:40%;"></div>
-	  	<div data-bind="item.last_cycle_duration" style="width:30%;"></div>
-	  	<div data-bind="item.error_rate | append ' Err/h' " style="width:30%;"></div>
+	<li class="data" data-foreach-item="crawlers" data-bind-id="item.name" data-bind-style="item.color">
+	  <div data-bind="item.name" style="width:40%;"></div>
+  	<div data-bind="item.last_cycle_duration | secToHours"></div>
+  	<div data-bind="item.error_rate"></div>
 	</li>
 </ul>
 

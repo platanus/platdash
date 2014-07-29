@@ -13,3 +13,7 @@ class Dashing.Pricing extends Dashing.Widget
   		rgb = HSVtoRGB hue, 0.8, 0.8
   		_crawler.color = 'background: rgb('+rgb.r+','+rgb.g+','+rgb.b+');'
 
+Batman.mixin Batman.Filters,
+  secToHours: (number) ->
+    (number / 60 / 60).toFixed(2);
+

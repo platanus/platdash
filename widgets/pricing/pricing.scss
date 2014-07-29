@@ -9,7 +9,7 @@ $background-color:  #4876BD;
 .widget-pricing {
 
 	background-color: $background-color;
-  	vertical-align: top;
+  vertical-align: top;
 
 	h1 {
 		margin: 0px;
@@ -21,13 +21,18 @@ $background-color:  #4876BD;
 	}
 
 	.status > li.title {
-		padding-left: 42%;
 		background: none;
 		border: none;
 		height: 24px;
+    > div:first-child {
+      float: left;
+      width: 40%;
+      display: inline-block;
+    }
 		> div {
 			float: left;
-			text-align: left;
+      width: 30%;
+			text-align: center;
 			position: relative;
 			display: inline-block;
 			font-size: 16px;
@@ -46,9 +51,17 @@ $background-color:  #4876BD;
 		margin-bottom: 4px;
 		border: 5px outset rgba(255,255,255,0.3);
 		padding-left: 2%;
+    > div:first-child {
+      width:40%;
+      float: left;
+      text-align: left;
+      display: inline-block;
+      position:relative;
+    }
 		> div {
+      width:30%;
 			float: left;
-			text-align: left;
+			text-align: center;
 			display: inline-block;
 			position:relative
 		}
