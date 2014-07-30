@@ -8,11 +8,15 @@
 	<li>Errores (p/H): <span class="data" data-bind="query_error_count" data-bind-style="error_color"></span></li>
 </ul>
 
-<h5>Estado crawlers</h5>
+<h4>Crawlers</h4>
 <ul class="status">
-  	<li class data-foreach-item="crawlers" data-bind-id="item.name" data-bind-style="item.color">
-  	  	<div data-bind="item.name" class="label"></div>
-	  	<div data-bind="item.errors | append ' Err/h'" class="value"></div>
+  <li class="title">
+    <div>&nbsp;</div>
+    <div><i class="fa fa-warning"></i> err/h</div>
+  </li>
+	<li class="data" data-foreach-item="crawlers" data-bind-id="item.name" data-bind-style="item.color">
+    <div data-bind="item.name" class="label"></div>
+    <div data-bind="item.errors" class="value"></div>
 	</li>
 </ul>
 
