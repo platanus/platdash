@@ -2,7 +2,7 @@ require 'json'
 require 'time'
 require 'octokit'
 
-SCHEDULER.every '1h', :first_in => 0 do |job|
+SCHEDULER.every '10m', :first_in => 0 do |job|
   repo_name = 'platanus/angular-restmod'
 
 	@client = Octokit::Client.new(
