@@ -54,20 +54,22 @@ SCHEDULER.every '10m', :first_in => 0 do |job|
       ),
     :headers => {'Content-Type' => 'application/json'})
 
-developers.each do |dev|
-  dev[:avatar] = "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(dev['email'])}"
-  dev[:busy_hours] = 0
-  occupation = response.data.calendars.to_hash[dev['calendar']]
-  unless occupation.nil?
-    occupation['busy'].each do |session|
-      dev[:busy_hours] += (Time.parse(session['end']) - Time.parse(session['start'])) / 1.hour
+  developers.each do |dev|
+    dev[:avatar] = "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(dev['email'])}"
+    dev[:busy_hours] = 0
+    occupation = response.data.calendars.to_hash[dev['calendar']]
+    unless occupation.nil?
+      occupation['busy'].each do |session|
+        dev[:busy_hours] += (Time.parse(session['end']) - Time.parse(session['start'])) / 1.hour
+      end
+      weekly = GeneralKeyValue.instance.get("occupation_#{dev['slug']}_weekly_hours".to_sym).to_i
+      if weekly == 0
+        weekly = GeneralKeyValue.instance.get(:occupation_default_weekly_hours).to_i || 40
+      end
+      dev[:percent] = (dev[:busy_hours] * 100 / weekly).round
     end
-    weekly = GeneralKeyValue.instance.get("occupation_#{dev['slug']}_weekly_hours".to_sym).to_i
-    if weekly == 0
-      weekly = GeneralKeyValue.instance.get(:occupation_default_weekly_hours).to_i || 40
-    end
-    dev[:percent] = ((dev[:busy_hours] * 100 / weekly).round).to_s  + "%"
   end
-end
+
+  developers.sort_by! {|d| -d[:percent]}
   send_event('occupation', {items: developers})
 end

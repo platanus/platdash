@@ -4,25 +4,42 @@
 
   </thead>
   <tbody>
+    <tr data-foreach-item="items" data-bind-id="item.slug">
+      <td class="col-icon">
+        <img data-bind-src="item.avatar" width="32px" height="32px">
+      </td>
+      <td class="col-content">
+        <div class="progress">
+          <div class="bar"
+               data-bind-style="item.style"></div>
+          <div class="total"></div>
+        </div>
+        <div class="label">
+          <span data-bind="item.first_name"></span>
+        </div>
+        <div class="value">
+          <span data-bind="item.percent | append '%'">%</span>
+        </div>
+      </td>
+    </tr>
   </tbody>
-  <tr data-foreach-item="items">
-  <td class="col-icon">
-    <img data-bind-src="item.avatar" width="32px" height="32px">
-  </td>
-  <td class="col-name" style="text-align:left;">
-    <span data-bind="item.first_name"></span>
-  </td>
-  <td class="col-score value">
-    <div class="current-score" data-bind="item.percent" ></div>
-  </td>
-  </tr>
 </table>
-<!--
-<ul>
-  <li data-foreach-item="items">
-    <img data-bind-src="item.avatar" width="62px" height="62px"/>
-    <span class="label" data-bind="item.name"></span>
-    <span class="value" data-bind="item.percent">%</span>
+<!-- <ul class="developers">
+  <li class="dev clearfix" data-foreach-item="items">
+    <div class="avatar">
+      <img data-bind-src="item.avatar" width="32px" height="32px"/>
+    </div>
+    <div class="content clearfix">
+      <div class="progress">
+        <div class="bar"></div>
+      </div>
+      <div class="label">
+        <span data-bind="item.first_name"></span>
+      </div>
+      <div class="value">
+        <span data-bind="item.percent | append '%'">%</span>
+      </div>
+    </div>
   </li>
 </ul> -->
 

@@ -1,3 +1,54 @@
 .widget-occupation {
 
+    .col-icon {
+        width: 32px;
+        height: 32px;
+        padding: 4px 4px 0 0;
+    }
+
+    .col-content {
+        overflow: hidden;
+        font-size: 0.9em;
+        line-height: 32px;
+        padding: 4px 0 0 0;
+
+
+        .label {
+            float:left;
+            position: relative;
+            z-index: 10;
+            margin-left: 7px;
+        }
+        .value {
+            float:right;
+            position: relative;
+            z-index: 10;
+            margin-right: 7px;
+        }
+
+        .progress {
+            position: relative;
+
+             .bar{
+                position: absolute;
+                width: 0%;
+                height: 32px;
+                background: red;
+                z-index: 8;
+                left: 0px;
+                top: 0;
+            }
+
+            .total {
+                position: absolute;
+                width: 100%;
+                height: 32px;
+                background: #2D5375;
+                z-index: 5;
+                left: 0px;
+                top: 0;
+            }
+        }
+    }
+
 }
