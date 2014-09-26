@@ -1,21 +1,33 @@
 <h1 class="title" data-bind="title"></h1>
 
-<h2 class="value" data-bind="current | shortenedNumber | prepend prefix | append suffix"></h2>
+<div class="stats">
+  <span class="stat">
+    <i class="fa fa-star"></i><br /><span data-bind="stargazers"></span>
+  </span>
+  <span class="stat">
+    <i class="fa fa-eye"></i><br /><span data-bind="watchers"></span>
+  </span>
+  <span class="stat">
+    <i class="fa fa-code-fork"></i><br /><span data-bind="forks"></span>
+  </span>
+  <span class="stat">
+    <i class="fa fa-exclamation-circle"></i><br /><span data-bind="open_issues"></span>
+  </span>
+</div>
 
-<div>
-  <span class="stat">
-    <i class="fa fa-2x fa-star"></i> <span data-bind="stargazers"></span>
-  </span>
-  <span class="stat">
-    <i class="fa fa-2x fa-eye"></i> <span data-bind="watchers"></span>
-  </span>
-</div>
-<div>
-  <span class="stat">
-    <i class="fa fa-2x fa-code-fork"></i> <span data-bind="forks"></span>
-  </span>
-  <span class="stat">
-    <i class="fa fa-2x fa-exclamation-circle"></i> <span data-bind="open_issues"></span>
-  </span>
-</div>
+<ul class="tweets">
+  <li data-foreach-tweet="tweets" class="tweet">
+    <div class="user-col">
+      <i class="fa fa-twitter tweet-icon"></i>
+      <img data-bind-src="tweet.avatar" width="32px" height="32px">
+      <span data-bind="tweet.handle | prepend '@'" class="handle"></span>
+    </div>
+    <div class="text">
+      <i class="fa fa-quote-left quote"></i>
+      <span data-bind="tweet.body" class="body"></span>
+      <i class="fa fa-quote-right quote"></i>
+      <span data-bind="tweet.date" class="date"></span>
+    </div>
+  </li>
+</ul>
 <p class="updated-at" data-bind="updatedAtMessage"></p>

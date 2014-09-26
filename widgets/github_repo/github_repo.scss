@@ -14,20 +14,27 @@ $arrow-down-color:  rgba(223, 101, 54, 0.7);
 // Widget-number styles
 // ----------------------------------------------------------------------------
 .widget-github-repo {
-
+  vertical-align: top !important;
   background-color: $background-color;
 
   .title {
     color: $title-color;
+    margin-bottom: 4px;
+  }
+
+  .stats {
+    background-color: rgba(0,0,0,0.2);
+    margin: 0 -12px;
+    padding: 7px 0 5px;
   }
 
   .stat {
     text-align: center;
-    width: 40%;
+    width: 20%;
     display: inline-block;
 
     span {
-      font-size: 1.5em;
+      font-size: 1.2em;
     }
   }
 
@@ -55,6 +62,58 @@ $arrow-down-color:  rgba(223, 101, 54, 0.7);
 
   .fa.fa-arrow-down {
     color: $arrow-down-color;
+  }
+
+  .tweets {
+    position: relative;
+  }
+
+  .tweet {
+    text-align: left;
+    display: none;
+    position: absolute;
+    margin-top: 15px;
+
+    .tweet-icon {
+      font-size: 1.4em;
+      color: rgb(255,255,255);
+      float: right;
+    }
+
+    .quote {
+      font-size: 1.4em;
+      color: rgba(255,255,255,0.5);
+
+      &.fa-quote-right {
+        vertical-align: sub;
+      }
+    }
+
+    .text {
+      text-align: left;
+    }
+
+    .body {
+      font-size: 0.8em;
+      font-style: italic;
+    }
+
+    .date {
+      font-size: 0.6em;
+      color: rgba(255,255,255,0.5);
+      text-align: right;
+    }
+
+    .handle {
+      font-size: 1em;
+      margin-left: 5px;
+    }
+
+    .user-col {
+      text-align: left;
+      color: #5C2B2B;
+      margin-bottom: 5px;
+    }
   }
 
 }

@@ -24,4 +24,6 @@ gem 'octokit'
 gem 'faraday', '~> 0.9'
 gem 'faraday-http-cache'
 
+gem 'twitter'
+
 # gem 'pry'
