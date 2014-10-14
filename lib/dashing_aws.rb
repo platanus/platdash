@@ -50,6 +50,19 @@ class DashingAWS
         ec2.reserved_instances
     end
 
+    def getEc2InstanceStatus()
+        # Get an API client instance
+        ec2 = @ec2
+        if not ec2
+            ec2 = @ec2 = AWS::EC2.new({
+                access_key_id: @access_key_id,
+                secret_access_key: @secret_access_key
+            })
+        end
+
+        ec2.client.describe_instance_status({:include_all_instances => true}).instance_status_set
+    end
+
     # Get statistics for an instance
     #
     # * `instance_id` is the instance to get data about.

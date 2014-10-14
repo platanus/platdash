@@ -1,0 +1,71 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$title-color:       rgba(255, 255, 255, 0.7);
+$background-color:  #267E4D;
+
+// ----------------------------------------------------------------------------
+// Widget-leaderboard styles
+// ----------------------------------------------------------------------------
+.widget-aws-status {
+  background-color: $background-color;
+  text-align: left;
+
+  .statuses {
+    border-collapse: separate;
+    border-spacing: 0 4px;
+
+    tr {
+      background: rgba(0,0,0,0.1);
+    }
+  }
+
+	.title {
+    color: $title-color;
+  }
+
+  .col-icon {
+    width: 45px;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  .col-name {
+    text-align: left;
+  }
+  .col-status {
+    width: 60px;
+    padding-right: 5px;
+    text-align: right;
+  }
+
+  .name {
+    font-size: 0.8em;
+  }
+
+  .instance {
+    border-bottom: 1px solid lightgray;
+  }
+
+  .status {
+    &.running {
+      color: rgb(0, 255, 0);
+
+      &:before {
+        content: "\f111";
+      }
+    }
+    &.stopped {
+      color: rgb(255, 0, 0);
+
+      &:before {
+        content: "\f111";
+      }
+    }
+  }
+
+  .description {
+    text-align: left;
+    font-size: 0.6em;
+    color: lightgray;
+  }
+}

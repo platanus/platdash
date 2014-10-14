@@ -36,20 +36,29 @@ reserved_normalization_factor = {
 #
 
 SCHEDULER.every '5m', :first_in => 0 do |job|
+    # Get the ec2 instances
+    ec2_instance_collection = dashing_aws.getEc2Instances
+    ec2_instances_status = dashing_aws.getEc2InstanceStatus
 
     # EC2 CPU Stats
-    ec2_instances = dashing_aws.getEc2Instances
-    ec2_instances = ec2_instances.map(){|instance|
+    ec2_instances = ec2_instance_collection.map(){|instance|
         type_split = instance.instance_type.match(/(.*)\.(.*)/)
+        status = ec2_instances_status.find {|i| i[:instance_id] == instance.id }
 
         {
             instance_id: instance.instance_id,
             region: 'us-east-1',
             name: instance.tags['Name'],
+            avatar: instance.tags['avatar'],
+            role: instance.tags['role'],
+            project: instance.tags['project'],
             instance_type: instance.instance_type,
             family: type_split[1],
             normalization_factor: reserved_normalization_factor[type_split[2]],
-            status: instance.status
+            status: instance.status,
+            events_set: status[:events_set],
+            system_status: status[:system_status],
+            instance_status: status[:instance_status]
         }
     }
 
@@ -156,6 +165,7 @@ SCHEDULER.every '5m', :first_in => 0 do |job|
     send_event "rds-aws-cpu", { series: rds_cpu_series }
     send_event "ec2-aws-reserved", { stats: per_family_nf.to_a }
     send_event "billing-aws-estimatedcharges", { current: charges }
+    send_event "ec2-aws-status", { instances: ec2_instances }
 
     # If you're just using the regular Dashing graph widget:
     # send_event "aws-cpu-server1", { points: cpu_series[0][:data] }
