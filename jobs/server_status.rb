@@ -12,59 +12,60 @@ require 'uri'
 # if the server you're checking redirects (from http to https for example) the check will
 # return false
 
-servers = [{name: 'quehambre.cl', url: 'http://www.quehambre.cl', method: 'http'},
-    {name: 'pricing.platan.us', url: 'http://pricing.platan.us/users/sign_in', method: 'http'},
-    {name: 'ksec.cl', url: 'https://www.ksec.cl', method: 'http'},
-    {name: 'webtest.platan.us', url: 'http://webtest.platan.us/users/sign_in', method: 'http'},
-    {name: 'ghoster.io', url: 'http://ghoster.io', method: 'http'},
-    {name: 'cb.platan.us', url: 'http://cb.platan.us', method: 'http'},
-    {name: 'app.camperfarm.org', url: 'http://app.camperfarm.org', method: 'http'}]
+servers = [
+  {name: 'kross', url: 'http://kross.platan.us'},
+  {name: 'szot', url: 'http://szot.platan.us'}
+]
 
-SCHEDULER.every '300s', :first_in => 10 do |job|
+STATES = {
+  "unmonitored" =>        { icon: "fa fa-warning",        color: "red" },
+  "starting" =>           { icon: "fa fa-refresh",        color: "yellow" },
+  "stopping" =>           { icon: "fa fa-warning",        color: "red" },
+  "restarting" =>         { icon: "fa fa-refresh",        color: "yellow" },
+  "up" =>                 { icon: "fa fa-thumbs-up",      color: "green" },
+  "down" =>               { icon: "fa fa-warning",        color: "red" },
+}
+
+SCHEDULER.every '60s', :first_in => 10 do |job|
 
   statuses = Array.new
 
   # check status for each server
   servers.each do |server|
-    if server[:method] == 'http'
-      begin
-        uri = URI.parse(server[:url])
-        http = Net::HTTP.new(uri.host, uri.port)
-        if uri.scheme == "https"
-          http.use_ssl=true
-          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        end
-        request = Net::HTTP::Get.new(uri.request_uri)
-        response = http.request(request)
-        if response.code == "200"
-          result = 1
-         else
-          result = 0
-         end
-      rescue
-        result = 0
-      end
-    elsif server[:method] == 'ping'
-      ping_count = 10
-      result = `ping -q -c #{ping_count} #{server[:url]}`
-      if ($?.exitstatus == 0)
-        result = 1
-      else
-        result = 0
-      end
+
+
+    begin
+      uri = URI.parse("#{server[:url]}/api/short?filter=all")
+      http = Net::HTTP.new(uri.host, 65093)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
+    rescue
     end
 
-    if result == 1
-      arrow = "fa fa-thumbs-up"
-      color = "$title-color"
-    else
-      arrow = "fa fa-warning"
-      color = "red"
+    # Parse the resulting json from bitstamp's response
+    obj = JSON.parse(response.body)
+    result = obj['result']['subtree']
+
+    result = result.map do |app|
+      app["is_up"] = app["states"].keys.none? {|a| a != "up"}
+
+      app["states"] = app["states"].map do |state, value|
+        {
+          state: state,
+          process_count: value,
+          icon: STATES[state][:icon],
+          color: STATES[state][:color]
+        }
+      end
+      app
     end
 
-    statuses.push({label: server[:name], value: result, arrow: arrow, color: color})
+    statuses.push({server: server[:name], applications: result})
   end
 
-  # print statuses to dashboard
+#   end
+  p statuses
+
+#   # print statuses to dashboard
   send_event('server_status', {items: statuses})
 end
