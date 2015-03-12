@@ -1,0 +1,49 @@
+<h1>Madbill</h1>
+
+<!-- <h5>Última hora</h5> -->
+<div class="stats">
+  
+  <div class="stat">
+    <h4>0. MoM growth</h4>
+    <h3 class="value" data-bind="zero_growth"></h3>
+    <h5>this month's events</h5><h5>compared to last month's</h5>
+  </div>
+
+  <div class="stat">
+    <h4>1. Referral</h4>
+    <h3 class="value" data-bind="one_referral"></h3>
+    <h5>new debtors per</h5><h5>active users</h5>
+  </div>
+
+  <div class="stat">
+    <h4>2. Acquisition</h4>
+    <h3 class="value" data-bind="two_acquisition | append '%'"></h3>
+     <h5>of new debtors</h5><h5>installed the app</h5>
+  </div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+    <h4>3. Activation</h4>
+    <h3 class="value" data-bind="three_activation | append '%'"></h3>
+    <h5>of people who installed</h5><h5>the app created an event</h5>
+  </div>
+
+  <div class="stat">
+    <h4>4. Retention</h4>
+    <h3 class="value" data-bind="four_retention | append '%'"></h3>
+    <h5>of last month users</h5><h5>came back this month</h5>
+  </div>
+
+  <div class="stat">
+    <h4>5. Happiness</h4>
+    <h3 class="value" data-bind="five_happiness | append '%'"></h3>
+    <h5>of the events has more</h5><h5>than 2/3 of positive answers</h5>
+  </div>
+  
+</div>
+
+
+<p class="updated-at" data-bind="updatedAtMessage"></p>

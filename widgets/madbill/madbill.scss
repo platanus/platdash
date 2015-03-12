@@ -1,0 +1,64 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$background-color:  #292D38;
+
+// ----------------------------------------------------------------------------
+// Widget-iconstruye styles
+// ----------------------------------------------------------------------------
+.widget-madbill {
+
+	background-color: $background-color;
+	vertical-align: top;
+
+  .logo {
+    width: 100px;
+  }
+
+  h3 {
+    font-size: 2.5em;
+  }
+
+  h4 {
+    font-weight: normal;
+  }
+
+  h5 {
+    font-size: 0.5em;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  .stats {
+    margin: 0 -12px;
+    padding: 7px 0 5px;
+    position: relative;
+  }
+
+  .stat {
+    vertical-align: top;
+    text-align: center;
+    width: 30%;
+    display: inline-block;
+
+
+    span {
+      font-size: 1.2em;
+    }
+  }
+
+  .diff {
+    margin-top: -10px;
+    color: green;
+
+  }
+
+}
+
+.madbill-logo {
+  background-image: url('https://cloud.githubusercontent.com/assets/9555777/6608496/2fb4124e-c826-11e4-8c83-c622aa7acdc0.png');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 100px;
+  height: 100px;
+}
