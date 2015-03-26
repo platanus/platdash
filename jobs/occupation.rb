@@ -67,6 +67,20 @@ SCHEDULER.every '10m', :first_in => 0 do |job|
         weekly = GeneralKeyValue.instance.get(:occupation_default_weekly_hours).to_i || 40
       end
       dev[:percent] = (dev[:busy_hours] * 100 / weekly).round
+
+      today_events = client.execute(
+        :api_method => calendar.events.list,
+        :parameters => {
+          :calendarId => dev['calendar'],
+          :timeMin => DateTime.current.rfc3339,
+          :timeMax => (Date.today + 1).rfc3339,
+          :maxResults => 10,
+          :singleEvents => true,
+          :orderBy => "startTime"
+        },
+        :headers => {'Content-Type' => 'application/json'})
+
+      dev[:events] = today_events.data.items.map {|a| a.summary}.reject {|a| a == "Almuerzo"}.uniq.first(2).join(" | ")
     end
   end
 
