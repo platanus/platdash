@@ -34,30 +34,35 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
   //   margin-bottom: 5px;
   // }
   //
-  .server {
-    margin-top: 7px;
-    padding: 4px;
-    background: transparentize(darken($background-color, 10), 0.5);
-    overflow: auto;
-    zoom: 1;
-  }
+
 
   .app {
-    clear: both;
-    margin-top: 6px;
-    overflow: auto;
-    zoom: 1;
+    background: transparentize(darken($background-color, 10), 0.5);
+    padding: 6px;
+    margin-top: 2px;
 
     .name {
-      float: left;
-      font-weight: 600;
+      text-align: left;
     }
 
-    .processes {
-      float: right;
-      font-size: 0.8em;
-      margin-left: 12px;
+    .server {
+      text-align: left;
+
+
+      .name {
+        display: inline-block;
+        font-weight: 600;
+        font-size: 0.7em;
+      }
+
+      .processes {
+        display: inline-block;
+        font-size: 0.7em;
+        margin-left: 12px;
+      }
     }
+
+
   }
 
   .list-nostyle {

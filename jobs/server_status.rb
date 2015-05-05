@@ -12,10 +12,8 @@ require 'uri'
 # if the server you're checking redirects (from http to https for example) the check will
 # return false
 
-servers = [
-  {name: 'kross', url: 'http://kross.platan.us'},
-  {name: 'szot', url: 'http://szot.platan.us'}
-]
+CONSUL_HOST = "consul.platan.us"
+CONSUL_URI = "/v1/health/checks/eye"
 
 STATES = {
   "unmonitored" =>        { icon: "fa fa-warning",        color: "red" },
@@ -28,28 +26,41 @@ STATES = {
 
 SCHEDULER.every '60s', :first_in => 10 do |job|
 
-  statuses = Array.new
-
-  # check status for each server
-  servers.each do |server|
-
-
-    begin
-      uri = URI.parse("#{server[:url]}/api/short?filter=all")
-      http = Net::HTTP.new(uri.host, 65093)
-      request = Net::HTTP::Get.new(uri.request_uri)
+   begin
+      http = Net::HTTP.new(CONSUL_HOST, 8500)
+      request = Net::HTTP::Get.new(CONSUL_URI)
       response = http.request(request)
     rescue
     end
 
+    consul_services = JSON.parse(response.body)
+
+    servers = consul_services.select {|s| s['Status'] == 'passing'}
+    servers = servers.map do |s|
+      s[:url] = "#{s['Node']}.platan.us"
+      s
+    end
+
+  applications = Hash.new { |h, k| h[k] = { 'name' => k, 'servers' => [] } }
+
+  # check status for each server
+  servers.each do |server|
+
+    # begin
+      uri = URI.parse("http://#{server[:url]}/api/short?filter=all")
+      http = Net::HTTP.new(uri.host, 65093)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
+    # rescue
+    # end
+
     # Parse the resulting json from bitstamp's response
     obj = JSON.parse(response.body)
+
     result = obj['result']['subtree']
 
-    result = result.map do |app|
-      app["is_up"] = app["states"].keys.none? {|a| a != "up"}
-
-      app["states"] = app["states"].map do |state, value|
+    result.each do |res|
+      states = res["states"].map do |state, value|
         {
           state: state,
           process_count: value,
@@ -57,15 +68,15 @@ SCHEDULER.every '60s', :first_in => 10 do |job|
           color: STATES[state][:color]
         }
       end
-      app
+      applications[res['name']]['servers'] << {
+        name: server['Node'],
+        states: states,
+        is_up: states.all? {|a| a[:state] == "up"}
+      }
     end
 
-    statuses.push({server: server[:name], applications: result})
   end
 
-#   end
-  p statuses
-
-#   # print statuses to dashboard
-  send_event('server_status', {items: statuses})
+  # print statuses to dashboard
+  send_event('server_status', {items: applications.values})
 end
