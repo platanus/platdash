@@ -1,20 +1,16 @@
 <h1 class="title" data-bind="title"></h1>
 
-<ul>
-  <li class="app" data-foreach-app="items">
-    <div class="name" data-bind="app.name"></div>
-    <div>
-      <ul>
-        <li class="server" data-foreach-server="app.servers">
-          <span data-hideif="server.is_up"><i class="red fa fa-warning"></i></span> <span class="name" data-bind="server.name"></span>
-          <div class="processes" data-foreach-state="server.states">
-            <span data-bind="state.state"></span> <span class="" data-bind="state.process_count"></span>
-            <span data-bind-class="state.color"><i data-bind-class="state.icon"></i></span>
-          </div>
-
-        </li>
-      </ul>
-    </div>
+<ul class="apps">
+  <li class="app" data-foreach-app="items" data-debug="true">
+    <div class="app__name" data-bind="app.name" data-addclass-is-down="app.is_down"></div>
+    <ul class="servers">
+      <li class="server" data-foreach-server="app.servers">
+        <span class="server__name" data-bind="server.name"></span>
+        <p class="processes">
+          <span data-foreach-state="server.states" data-bind-class="state.color" data-addclass-processes__process="state"></span>
+        </p>
+      </li>
+    </ul>
   </li>
 </ul>
 

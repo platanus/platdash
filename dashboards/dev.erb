@@ -1,0 +1,86 @@
+<% content_for :title do %>
+Platanus Dashboard
+<% end %>
+
+<script type='text/javascript'>
+	$(function() {
+		Dashing.widget_base_dimensions = [310, 162]
+		Dashing.numColumns = 6
+	});
+</script>
+
+<div id="container">
+	<div class="gridster">
+		<ul>
+			<li data-row="1" data-col="1" data-sizex="3" data-sizey="5">
+				<div data-id="server_status"
+				data-view="server_status"
+				data-title="200 OK"></div>
+				<i class="fa fa-laptop icon-background"></i>
+			</li>
+
+			<li data-row="6" data-col="1" data-sizex="2" data-sizey="1">
+				<div data-id="ec2-aws-cpu"
+				data-view="Rickshawgraph"
+				data-title="EC2 CPU Usage"
+				data-moreinfo=""
+				style="background-color:#333A52;"
+				data-renderer="line"
+				data-min="0"
+				data-max="100"
+				data-summary-method="none"
+				data-legend="true"
+				data-color-scheme="rainbow"></div>
+			</li>
+
+			<li data-row="6" data-col="3" data-sizex="2" data-sizey="1">
+				<div data-id="ec2-aws-mem"
+				data-view="Rickshawgraph"
+				data-title="EC2 Memory Usage"
+				data-moreinfo=""
+				style="background-color:#333A52;"
+				data-renderer="line"
+				data-min="0"
+				data-max="100"
+				data-summary-method="none"
+				data-legend="true"
+				data-color-scheme="rainbow"></div>
+			</li>
+
+			<li data-row="1" data-col="6" data-sizex="1" data-sizey="6">
+				<div data-id="ec2-aws-status"
+				data-view="AwsStatus"
+				data-title="Aws Instances"></div>
+				<i class="fa fa-tachometer icon-background"></i>
+			</li>
+
+			  <li data-row="5" data-col="4" data-sizex="2" data-sizey="1">
+			  	<div data-id="rds-aws-cpu"
+			  	data-view="Rickshawgraph"
+			  	data-title="RDS CPU Usage"
+			  	data-moreinfo=""
+			  	style="background-color:#3D7C7C;"
+			  	data-renderer="line"
+			  	data-min="0"
+			  	data-max="100"
+			  	data-summary-method="none"
+			  	data-legend="true"
+			  	data-color-scheme="rainbow"></div>
+			  </li>
+
+			  <li data-row="6" data-col="5" data-sizex="1" data-sizey="1">
+			  	<div data-id="ec2-aws-hdd"
+			  	data-view="Rickshawgraph"
+			  	data-title="EC2 HDD Usage"
+			  	data-moreinfo=""
+			  	style="background-color:#333A52;"
+			  	data-renderer="line"
+			  	data-min="0"
+			  	data-max="100"
+			  	data-summary-method="none"
+			  	data-legend="true"
+			  	data-color-scheme="rainbow"></div>
+			  </li>
+			</ul>
+		</div>
+	</div>

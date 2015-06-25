@@ -45,14 +45,14 @@ SCHEDULER.every '60s', :first_in => 10 do |job|
 
   # check status for each server
   servers.each do |server|
-
-    # begin
+    begin
       uri = URI.parse("http://#{server[:url]}/api/short?filter=all")
       http = Net::HTTP.new(uri.host, 65093)
-      request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
-    # rescue
-    # end
+      puts uri
+        request = Net::HTTP::Get.new(uri.request_uri)
+        response = http.request(request)
+      rescue
+    end
 
     # Parse the resulting json from bitstamp's response
     obj = JSON.parse(response.body)
@@ -60,21 +60,25 @@ SCHEDULER.every '60s', :first_in => 10 do |job|
     result = obj['result']['subtree']
 
     result.each do |res|
-      states = res["states"].map do |state, value|
-        {
-          state: state,
-          process_count: value,
-          icon: STATES[state][:icon],
-          color: STATES[state][:color]
-        }
+      states = []
+      res["states"].each do |state, value|
+        count = 0
+        while count <= value do
+          states.push({
+            state: state,
+            icon: STATES[state][:icon],
+            color: STATES[state][:color]
+          })
+          count += 1
+        end
       end
       applications[res['name']]['servers'] << {
         name: server['Node'],
         states: states,
         is_up: states.all? {|a| a[:state] == "up"}
       }
+      applications[res['name']]['is_down'] = applications[res['name']]['servers'].all? {|a| a[:is_up] == false}
     end
-
   end
 
   # print statuses to dashboard

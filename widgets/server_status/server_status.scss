@@ -11,60 +11,27 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 // ----------------------------------------------------------------------------
 // Widget-list styles
 // ----------------------------------------------------------------------------
-.widget-server-status {
 
+.widget-server-status {
   background-color: $background-color;
   vertical-align: top;
-
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex !important;
+  flex-flow: column;
+  * {
+    box-sizing: border-box;
+  }
   .title {
     color: $title-color;
+    flex-shrink: 0;
   }
-
-  // ol, ul {
-  //   margin: 0 15px;
-  //   text-align: left;
-  //   color: $label-color;
-  // }
-
-  // ol {
-  //   list-style-position: inside;
-  // }
-
-  // li {
-  //   margin-bottom: 5px;
-  // }
-  //
-
-
-  .app {
-    background: transparentize(darken($background-color, 10), 0.5);
-    padding: 6px;
-    margin-top: 2px;
-
-    .name {
-      text-align: left;
-    }
-
-    .server {
-      text-align: left;
-
-
-      .name {
-        display: inline-block;
-        font-weight: 600;
-        font-size: 0.7em;
-      }
-
-      .processes {
-        display: inline-block;
-        font-size: 0.7em;
-        margin-left: 12px;
-      }
-    }
-
-
-  }
-
   .list-nostyle {
     list-style: none;
   }
@@ -82,14 +49,61 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
   }
 
   .red {
-    color: red;
+    background-color: red;
   }
 
   .yellow {
-    color: orange;
+    background-color: orange;
   }
 
   .green {
-    color: green;
+    background-color: green;
   }
+}
+
+.apps {
+  display: flex;
+  flex-flow: column wrap;
+}
+.app {
+  background: transparentize(darken($background-color, 10), 0.5);
+  margin: 0 5px 5px;
+  width: calc(20% - 10px);
+}
+.app__name {
+  text-align: left;
+  padding: 4px;
+  background-color: rgba(0,0,0,.4);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &.is-down {
+    background-color: rgba(red,0.8);
+  }
+}
+.servers {
+  padding: 6px;
+}
+.server {
+  text-align: left;
+  font-size: 0.7em;
+}
+.server__name {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1em;
+  margin-right: 10px;
+  width: 45px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+.processes {
+  display: flex;
+  flex-flow: row wrap;
+}
+.processes__process {
+  height: 15px;
+  flex: 0 0 15px;
+  border: 1px solid #fff;
 }
